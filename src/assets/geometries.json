@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "K1",
+    "conductors": [
+      {
+        "wire": 1,
+        "xcoord": -3.15,
+        "ycoord": 16.08
+      },
+      {
+        "wire": 1,
+        "xcoord": -3.15,
+        "ycoord": 19.74
+      },
+      {
+        "wire": 1,
+        "xcoord": -3.15,
+        "ycoord": 23.4
+      },
+      {
+        "wire": 1,
+        "xcoord": 3.15,
+        "ycoord": 16.08
+      },
+      {
+        "wire": 1,
+        "xcoord": 3.15,
+        "ycoord": 19.74
+      },
+      {
+        "wire": 1,
+        "xcoord": 3.15,
+        "ycoord": 23.4
+      },
+      {
+        "wire": 1,
+        "xcoord": -1.225,
+        "ycoord": 25.23
+      },
+      {
+        "wire": 1,
+        "xcoord": -1.225,
+        "ycoord": 25.23
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Esoura-Toyota",
+    "conductors": [
+      {
+        "wire": 81,
+        "xcoord": -7.5,
+        "ycoord": 18.9
+      },
+      {
+        "wire": 81,
+        "xcoord": 0,
+        "ycoord": 18.9
+      },
+      {
+        "wire": 81,
+        "xcoord": 7.5,
+        "ycoord": 18.9
+      },
+      {
+        "wire": 82,
+        "xcoord": -5.2,
+        "ycoord": 36.51
+      },
+      {
+        "wire": 82,
+        "xcoord": 5.2,
+        "ycoord": 36.51
+      }
+    ]
+  }
+]
