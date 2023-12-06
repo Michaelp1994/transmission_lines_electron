@@ -104,14 +104,4 @@ p, h1, h2, h3, h4, h5, h6 {
 html {
   font-family: "Roboto", sans-serif;
 }
-a {
-  /* display: block; */
-  text-align: center;
-  text-decoration: inherit;
-  color: inherit;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  appearance: auto;
-  align-items: flex-start;
-}
 `;

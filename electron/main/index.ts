@@ -2,7 +2,8 @@ import { BrowserWindow, app, ipcMain, shell } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-// import { run } from "electron/openDss";
+import buildScript from "./buildScript";
+import { buildCircuit } from "./fakeScript";
 process.env.DIST_ELECTRON = join(__dirname, "../");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.VITE_PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -110,10 +111,12 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
-// ipcMain.on("port", (event) => {
-//   const port = event.ports[0];
-//   port.on("message", (event) => {
-//     const dss = winax.Object("OpenDSSengine.DSS");
-//   });
-//   port.start();
-// });
+ipcMain.on("port", (event) => {
+  const port = event.ports[0];
+  port.on("message", async (event) => {
+    const results = await buildCircuit();
+    port.postMessage(results);
+    //buildScript(event.data.sources, event.data.transmissionLines);
+  });
+  port.start();
+});

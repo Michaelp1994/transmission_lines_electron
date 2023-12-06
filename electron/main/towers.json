@@ -1,0 +1,412 @@
+[
+    {
+        "name": "35_3",
+        "distance": 80,
+        "tower_type": "1DA"
+    },
+    {
+        "name": "1_1",
+        "distance": 149.118,
+        "tower_type": "K4"
+    },
+    {
+        "name": "1_2",
+        "distance": 237,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "1_3",
+        "distance": 289.668,
+        "tower_type": "K1"
+    },
+    {
+        "name": "1_4",
+        "distance": 305.116,
+        "tower_type": "K4"
+    },
+    {
+        "name": "2_1",
+        "distance": 385,
+        "tower_type": "K2"
+    },
+    {
+        "name": "2_2",
+        "distance": 260,
+        "tower_type": "K2"
+    },
+    {
+        "name": "2_3",
+        "distance": 272.118,
+        "tower_type": "K1"
+    },
+    {
+        "name": "2_4",
+        "distance": 180,
+        "tower_type": "K4"
+    },
+    {
+        "name": "3_1",
+        "distance": 317,
+        "tower_type": "K1"
+    },
+    {
+        "name": "3_2",
+        "distance": 328.764,
+        "tower_type": "K1"
+    },
+    {
+        "name": "3_3",
+        "distance": 142,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "3_4",
+        "distance": 114.863,
+        "tower_type": "K1"
+    },
+    {
+        "name": "4_1",
+        "distance": 212.914,
+        "tower_type": "K4"
+    },
+    {
+        "name": "4_2",
+        "distance": 312.931,
+        "tower_type": "K4"
+    },
+    {
+        "name": "4_3",
+        "distance": 164.539,
+        "tower_type": "K2"
+    },
+    {
+        "name": "4_4",
+        "distance": 334.543,
+        "tower_type": "K4"
+    },
+    {
+        "name": "5_1",
+        "distance": 71.805,
+        "tower_type": "K4"
+    },
+    {
+        "name": "5_2",
+        "distance": 350.001,
+        "tower_type": "K4"
+    },
+    {
+        "name": "5_3",
+        "distance": 528.928,
+        "tower_type": "K2"
+    },
+    {
+        "name": "6_1",
+        "distance": 183,
+        "tower_type": "K4"
+    },
+    {
+        "name": "6_2",
+        "distance": 235.327,
+        "tower_type": "K1"
+    },
+    {
+        "name": "6_3",
+        "distance": 420,
+        "tower_type": "K4"
+    },
+    {
+        "name": "6_4",
+        "distance": 355,
+        "tower_type": "K2"
+    },
+    {
+        "name": "7_1",
+        "distance": 279.449,
+        "tower_type": "K1"
+    },
+    {
+        "name": "7_2",
+        "distance": 191,
+        "tower_type": "K4"
+    },
+    {
+        "name": "7_3",
+        "distance": 272,
+        "tower_type": "K1"
+    },
+    {
+        "name": "7_4",
+        "distance": 387.427,
+        "tower_type": "K1"
+    },
+    {
+        "name": "8_1",
+        "distance": 333.648,
+        "tower_type": "SCA30"
+    },
+    {
+        "name": "8_2",
+        "distance": 619.479,
+        "tower_type": "SCA30"
+    },
+    {
+        "name": "9_1",
+        "distance": 384.68,
+        "tower_type": "SCA30"
+    },
+    {
+        "name": "9_2",
+        "distance": 270.1,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "9_3",
+        "distance": 285,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "10_1",
+        "distance": 306,
+        "tower_type": "K2"
+    },
+    {
+        "name": "10_2",
+        "distance": 367,
+        "tower_type": "K2"
+    },
+    {
+        "name": "10_3",
+        "distance": 373.542,
+        "tower_type": "K2"
+    },
+    {
+        "name": "11_1",
+        "distance": 456,
+        "tower_type": "K4"
+    },
+    {
+        "name": "11_2",
+        "distance": 453,
+        "tower_type": "ST"
+    },
+    {
+        "name": "12_1",
+        "distance": 370,
+        "tower_type": "ST"
+    },
+    {
+        "name": "12_2",
+        "distance": 220.528,
+        "tower_type": "ST"
+    },
+    {
+        "name": "12_3",
+        "distance": 200,
+        "tower_type": "K4"
+    },
+    {
+        "name": "12_4",
+        "distance": 232,
+        "tower_type": "K1"
+    },
+    {
+        "name": "13_1",
+        "distance": 350,
+        "tower_type": "K1"
+    },
+    {
+        "name": "13_2",
+        "distance": 437,
+        "tower_type": "K1"
+    },
+    {
+        "name": "14_1",
+        "distance": 281,
+        "tower_type": "K1"
+    },
+    {
+        "name": "14_2",
+        "distance": 223,
+        "tower_type": "K1"
+    },
+    {
+        "name": "14_3",
+        "distance": 214.419,
+        "tower_type": "K1"
+    },
+    {
+        "name": "14_4",
+        "distance": 246.001,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "14_5",
+        "distance": 306,
+        "tower_type": "K1"
+    },
+    {
+        "name": "15_1",
+        "distance": 301.506,
+        "tower_type": "K1"
+    },
+    {
+        "name": "15_2",
+        "distance": 477.001,
+        "tower_type": "K4"
+    },
+    {
+        "name": "16_1",
+        "distance": 376.549,
+        "tower_type": "K2"
+    },
+    {
+        "name": "16_2",
+        "distance": 240,
+        "tower_type": "K4"
+    },
+    {
+        "name": "16_3",
+        "distance": 198,
+        "tower_type": "K1"
+    },
+    {
+        "name": "16_4",
+        "distance": 358.397,
+        "tower_type": "K2"
+    },
+    {
+        "name": "17_1",
+        "distance": 860.379,
+        "tower_type": "SCA30"
+    },
+    {
+        "name": "18_1",
+        "distance": 453.037,
+        "tower_type": "ST"
+    },
+    {
+        "name": "18_2",
+        "distance": 246.447,
+        "tower_type": "K4"
+    },
+    {
+        "name": "18_3",
+        "distance": 206.983,
+        "tower_type": "K4"
+    },
+    {
+        "name": "19_1",
+        "distance": 100.751,
+        "tower_type": "K4"
+    },
+    {
+        "name": "19_2",
+        "distance": 224.593,
+        "tower_type": "K4"
+    },
+    {
+        "name": "19_3",
+        "distance": 414.948,
+        "tower_type": "K4"
+    },
+    {
+        "name": "19_4",
+        "distance": 244.135,
+        "tower_type": "K4"
+    },
+    {
+        "name": "20_1",
+        "distance": 377.651,
+        "tower_type": "K1"
+    },
+    {
+        "name": "20_2",
+        "distance": 425.902,
+        "tower_type": "K1"
+    },
+    {
+        "name": "20_3",
+        "distance": 149,
+        "tower_type": "K2"
+    },
+    {
+        "name": "20_4",
+        "distance": 383.825,
+        "tower_type": "K2"
+    },
+    {
+        "name": "21_1",
+        "distance": 305,
+        "tower_type": "K1"
+    },
+    {
+        "name": "21_2",
+        "distance": 313.943,
+        "tower_type": "K1"
+    },
+    {
+        "name": "22_1",
+        "distance": 424.691,
+        "tower_type": "K4"
+    },
+    {
+        "name": "22_2",
+        "distance": 294.256,
+        "tower_type": "K2"
+    },
+    {
+        "name": "22_3",
+        "distance": 216.333,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "22_4",
+        "distance": 215.679,
+        "tower_type": "K2"
+    },
+    {
+        "name": "23_1",
+        "distance": 212.701,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "23_2",
+        "distance": 180,
+        "tower_type": "1AB"
+    },
+    {
+        "name": "23_3",
+        "distance": 275.647,
+        "tower_type": "K1"
+    },
+    {
+        "name": "23_4",
+        "distance": 403.42,
+        "tower_type": "K4"
+    },
+    {
+        "name": "24_1",
+        "distance": 156.862,
+        "tower_type": "K4"
+    },
+    {
+        "name": "24_2",
+        "distance": 74.819,
+        "tower_type": "1TB"
+    },
+    {
+        "name": "24_3",
+        "distance": 149.632,
+        "tower_type": "K4"
+    },
+    {
+        "name": "24_4",
+        "distance": 109.731,
+        "tower_type": "K4"
+    },
+    {
+        "name": "24_5",
+        "distance": 102.602,
+        "tower_type": "K4"
+    }
+]
