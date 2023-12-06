@@ -7,7 +7,7 @@ import { useAppSelector } from "@/store";
 
 function Home() {
   const transmissionLines = useAppSelector(
-    (state) => state.transmissionLines.transmissionLines,
+    (state) => state.transmissionLines.transmissionLines
   );
   const sources = useAppSelector((state) => state.sources.sources);
   return (
@@ -29,6 +29,7 @@ function Home() {
         <TransmissionLinesList />
       </TransmissionLinesSection>
       <Link to="/script">View Script!</Link>
+      <Link to="/generate">Solve Circuit!</Link>
     </StyledWrapper>
   );
 }
@@ -58,10 +59,8 @@ const FakeButton = styled.div`
   padding-inline: 1rem;
   height: 2.5rem;
   cursor: pointer;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-    0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
 
   &:hover {
     background-color: hsl(204 20% 96%);

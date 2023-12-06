@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
-import { Source } from "@/types/Source";
 import { useAppDispatch } from "@/store";
 import { addSource } from "@/store/SourcesSlice";
 import BaseButton from "@/components/BaseButton";

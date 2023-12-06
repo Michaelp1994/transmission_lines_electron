@@ -65,7 +65,7 @@ table {
   3. Allow percentage-based heights in the application
 */
 html, body, #root, #__next, main {
-  height: 100%;
+  height: 90vh;
 }
 /*
   Typographic tweaks!
@@ -105,7 +105,7 @@ html {
   font-family: "Roboto", sans-serif;
 }
 a {
-  display: block;
+  /* display: block; */
   text-align: center;
   text-decoration: inherit;
   color: inherit;

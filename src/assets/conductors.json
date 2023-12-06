@@ -1534,5 +1534,13 @@
     "cca": 1000,
     "ac_resistance_75": 2.33,
     "gmr": 4.6073483
+  },
+  {
+    "id": 83,
+    "name": "5_16ths",
+    "diameter_conductor": 7.94,
+    "cca": 1000,
+    "ac_resistance_75": 5.25,
+    "gmr": 4.6073483
   }
 ]

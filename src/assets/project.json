@@ -1,0 +1,149 @@
+{
+  "transmissionLines": [
+    {
+      "id": 0,
+      "name": "Line1",
+      "phases": 3,
+      "distance": 3,
+      "from": 1,
+      "to": 2,
+      "numTowers": 10,
+      "towerResistance": 21.25,
+      "defaultGeometry": 1,
+      "conductors": [
+        {
+          "id": 0,
+          "type": 1,
+          "phase": 1,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 1,
+          "type": 1,
+          "phase": 2,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 2,
+          "type": 1,
+          "phase": 3,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 3,
+          "type": 1,
+          "phase": 1,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 4,
+          "type": 1,
+          "phase": 2,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 5,
+          "type": 1,
+          "phase": 3,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 6,
+          "type": 1,
+          "phase": 4,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        },
+        {
+          "id": 7,
+          "type": 1,
+          "phase": 4,
+          "bundleNumber": 1,
+          "bundleSpacing": null
+        }
+      ],
+      "towers": [
+        {
+          "id": 0,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 1,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 2,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 3,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 4,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 5,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 6,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 7,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 8,
+          "resistance": 21.25,
+          "geometry": 1
+        },
+        {
+          "id": 9,
+          "resistance": 21.25,
+          "geometry": 1
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": 0,
+      "name": "Toyota",
+      "phases": 3,
+      "voltage": 138,
+      "x1r1": 4,
+      "isc1": 3,
+      "isc3": 3000,
+      "x0r0": 4000,
+      "resistance": 15
+    },
+    {
+      "id": 1,
+      "name": "Esoura",
+      "phases": 3,
+      "voltage": 138,
+      "x1r1": 4,
+      "isc1": 3,
+      "isc3": 3000,
+      "x0r0": 4000,
+      "resistance": 15
+    }
+  ]
+}

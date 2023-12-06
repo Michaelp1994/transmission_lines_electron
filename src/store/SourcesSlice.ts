@@ -1,4 +1,3 @@
-import { Source } from "@/types/Source";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 interface SourcesState {

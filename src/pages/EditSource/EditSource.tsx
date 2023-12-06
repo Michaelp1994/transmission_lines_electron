@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import FormInput from "@/components/FormInput";
 import { updateSource } from "@/store/SourcesSlice";
 import { Form, Formik, FormikHelpers } from "formik";
-import { Source } from "@/types/Source";
 import BaseButton from "@/components/BaseButton";
 interface Props {}
 
@@ -22,7 +21,7 @@ const EditSource: React.FC<Props> = (props) => {
       updateSource({
         id: sourceId,
         source: values,
-      }),
+      })
     );
     navigate("/");
   }

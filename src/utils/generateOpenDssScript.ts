@@ -1,5 +1,3 @@
-import { Source } from "@/types/Source";
-import { TransmissionLine } from "@/types/TransmissionLine";
 import conductors from "@/assets/conductors.json";
 import geometries from "@/assets/geometries.json";
 
@@ -23,7 +21,7 @@ function generateScript(project: Project) {
   script += generateGeometries(project);
   project.transmissionLines.forEach(
     (transmissionLine) =>
-      (script += generateTransmissionLine(transmissionLine, project.sources)),
+      (script += generateTransmissionLine(transmissionLine, project.sources))
   );
   script += `solve\n`;
   script += `Show Currents Elements`;
@@ -61,7 +59,7 @@ function generateGeometries(project: Project) {
     geometryScript += `New LineGeometry.${geometry.name} nconds=5 nphases=3 units=m reduce=no\n`;
     geometry.conductors.forEach((conductor, index) => {
       const wire = conductors.find(
-        (conductorTypes) => conductorTypes.id == conductor.wire,
+        (conductorTypes) => conductorTypes.id == conductor.wire
       );
       if (!wire) throw Error;
       const wireName = wire.name;

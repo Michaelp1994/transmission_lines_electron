@@ -7,7 +7,7 @@ import SourceSelect from "@/components/SourceSelect";
 import TowerSelect from "@/components/TowerSelect";
 import BaseButton from "@/components/BaseButton";
 import FormInput from "@/components/FormInput";
-import { TransmissionLine } from "@/types/TransmissionLine";
+
 interface Props {}
 
 const EditTransmissionLine: React.FC<Props> = (props) => {
@@ -17,11 +17,11 @@ const EditTransmissionLine: React.FC<Props> = (props) => {
   if (!id) return null;
   const sourceId = parseInt(id);
   const transmissionLine = useAppSelector(
-    (state) => state.transmissionLines.transmissionLines[sourceId],
+    (state) => state.transmissionLines.transmissionLines[sourceId]
   );
   function onSubmit(values: TransmissionLine) {
     dispatch(
-      updateTransmissionLine({ id: sourceId, transmissionLine: values }),
+      updateTransmissionLine({ id: sourceId, transmissionLine: values })
     );
     navigate("/");
   }

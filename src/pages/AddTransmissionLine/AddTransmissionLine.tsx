@@ -10,7 +10,6 @@ import BaseButton from "@/components/BaseButton";
 
 import { useAppDispatch } from "@/store";
 import { addTransmissionLine } from "@/store/TransmissionLinesSlice";
-import type { TransmissionLine } from "@/types/TransmissionLine";
 
 interface Props {}
 

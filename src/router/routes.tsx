@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import AddTransmissionLine from "@/pages/AddTransmissionLine/AddTransmissionLine";
 import DragandDragExample from "@/pages/Canvas/Canvas";
 import ScriptPage from "@/pages/OpenDssScript";
+import GeneratePage from "@/pages/GenerateResults";
 import TowerGeometries from "@/pages/TowerGeometries";
 import Conductors from "@/pages/Conductors";
 import EditTransmissionLine from "@/pages/EditTransmissionLine";
@@ -21,6 +22,7 @@ export default function Router() {
           <Route index element={<Home />} />
           <Route path="drag" element={<DragandDragExample />} />
           <Route path="script" element={<ScriptPage />} />
+          <Route path="generate" element={<GeneratePage />} />
           <Route path="towers" element={<TowerGeometries />} />
           <Route path="conductors" element={<Conductors />} />
 

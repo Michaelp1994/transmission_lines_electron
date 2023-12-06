@@ -1,4 +1,3 @@
-import { TransmissionLine } from "@/types/TransmissionLine";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface TransmissionLineState {
@@ -18,17 +17,17 @@ const TransmissionLinesSlice = createSlice({
   reducers: {
     addTransmissionLine: (
       state,
-      { payload }: PayloadAction<TransmissionLine>,
+      { payload }: PayloadAction<TransmissionLine>
     ) => {
       state.transmissionLines.push(payload);
     },
     updateTransmissionLine: (
       state,
-      { payload }: PayloadAction<updateTransmissionLineAction>,
+      { payload }: PayloadAction<updateTransmissionLineAction>
     ) => {
       Object.assign(
         state.transmissionLines[payload.id],
-        payload.transmissionLine,
+        payload.transmissionLine
       );
     },
     removeTransmissionLine: (state, { payload }: PayloadAction<number>) => {

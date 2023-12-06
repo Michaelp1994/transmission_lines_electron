@@ -6,20 +6,13 @@ import { Link } from "react-router-dom";
 function OpenDssScript() {
   const sources = useAppSelector((state) => state.sources.sources);
   const transmissionLines = useAppSelector(
-    (state) => state.transmissionLines.transmissionLines,
+    (state) => state.transmissionLines.transmissionLines
   );
 
   return (
     <Wrapper>
       <Heading>OpenDSS Script</Heading>
       <Link to="/">Go Back!</Link>
-      {/* <code>
-        <Pre>
-          {JSON.stringify(sources, null, 2)}
-          {JSON.stringify(transmissionLines, null, 2)}
-        </Pre>
-      </code> */}
-
       <Pre>
         <code>{generateScript({ sources, transmissionLines })}</code>
       </Pre>
