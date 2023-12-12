@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 import FormInput from "@/components/FormInput";
 import SourceSelect from "@/components/SourceSelect";
-import TowerSelect from "@/components/TowerSelect";
 import BaseButton from "@/components/BaseButton";
 
 import { useAppDispatch } from "@/store";
 import { addTransmissionLine } from "@/store/TransmissionLinesSlice";
+import ConductorConfigurationTable from "@/components/ConductorConfigurationTable";
+import TowerConfigurationTable from "@/components/TowerConfigurationTable";
 
 interface Props {}
 
@@ -18,15 +19,29 @@ const AddTransmissionLine: React.FC<Props> = () => {
   const navigate = useNavigate();
   const initialValues = {
     name: "",
-    phases: 3,
-    distance: 0,
-    from: 0,
-    to: 0,
-    numTowers: 0,
-    towerResistance: 0,
-    geometry: 0,
+    fromSource: 0,
+    toSource: 0,
+    conductors: [
+      {
+        name: "",
+        fromPhase: 0,
+        toPhase: 0,
+        bundleNumber: 1,
+        bundleSpacing: 0,
+        type: 0,
+      },
+    ],
+    towers: [
+      {
+        name: "",
+        resistance: 15,
+        distance: 1,
+        geometry: 1,
+      },
+    ],
   };
-  function onSubmit(values: TransmissionLine) {
+
+  function onSubmit(values) {
     dispatch(addTransmissionLine(values));
     navigate("/");
   }
@@ -43,37 +58,10 @@ const AddTransmissionLine: React.FC<Props> = () => {
             placeholder="Example"
             required
           />
-          <FormInput
-            label="Distance (km)"
-            name="distance"
-            type="number"
-            placeholder="1000"
-            required
-          />
-          <FormInput
-            label="Number of Towers"
-            name="numTowers"
-            type="number"
-            placeholder="3"
-            required
-          />
-          <FormInput
-            label="Phases"
-            name="phases"
-            type="number"
-            placeholder="3"
-            required
-          />
-          <FormInput
-            label="Tower Resistance"
-            name="towerResistance"
-            type="number"
-            placeholder="15"
-            required
-          />
-          <SourceSelect label="From" name="from" id="from" />
-          <SourceSelect label="To" name="to" id="to" />
-          <TowerSelect label="Tower Geometry" name="geometry" />
+          <SourceSelect label="From" name="fromSource" id="from" />
+          <SourceSelect label="To" name="toSource" id="to" />
+          <ConductorConfigurationTable />
+          <TowerConfigurationTable />
           <BaseButton type="submit">Add Transmission Line</BaseButton>
         </StyledForm>
       </Formik>
@@ -83,7 +71,9 @@ const AddTransmissionLine: React.FC<Props> = () => {
 
 export default AddTransmissionLine;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-bottom: 2rem;
+`;
 const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;

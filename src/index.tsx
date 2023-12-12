@@ -7,16 +7,14 @@ import GlobalStyles from "./components/GlobalStyles";
 import Router from "./router";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <GlobalStyles />
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+    <PersistGate loading={null} persistor={persistor}>
+      <Router />
+    </PersistGate>
+  </Provider>
 );

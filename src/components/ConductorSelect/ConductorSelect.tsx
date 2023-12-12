@@ -10,7 +10,9 @@ const ConductorSelect: React.FC<Props> = (props) => {
   return (
     <FormSelect label={props.label} name={props.name}>
       {conductorsList.map((conductor, index) => (
-        <option key={index}>{conductor.name}</option>
+        <option key={index} value={conductor.id}>
+          {conductor.name}
+        </option>
       ))}
     </FormSelect>
   );

@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { ipcRenderer } from "electron";
-
 import { useAppSelector } from "@/store";
 import { Link } from "react-router-dom";
-//import { useMessageChannel } from "@/utils/messageChannelHook";
 
 interface Props {}
 
 const GenerateResults: React.FC<Props> = (props) => {
+  console.log("rendered");
   const sources = useAppSelector((state) => state.sources.sources);
   const transmissionLines = useAppSelector(
     (state) => state.transmissionLines.transmissionLines
@@ -18,14 +17,22 @@ const GenerateResults: React.FC<Props> = (props) => {
     const channel = new MessageChannel();
     const port1 = channel.port1;
     const port2 = channel.port2;
-    ipcRenderer.postMessage("port", null, [port1]);
+    ipcRenderer.postMessage("send-port", null, [port1]);
+
     port2.postMessage({ sources, transmissionLines });
+
+    console.log("sent message");
+    console.log({ sources, transmissionLines });
     port2.onmessage = (event) => {
+      console.log("received message");
       console.log(event);
       setResults(event.data);
     };
-  }, [sources, transmissionLines]);
-  //const { port2 } = useMessageChannel();
+    return () => {
+      port2.close();
+      port1.close();
+    };
+  }, []);
 
   return (
     <Wrapper>
@@ -40,7 +47,7 @@ const GenerateResults: React.FC<Props> = (props) => {
         <tbody>
           {results.map((row) => {
             return (
-              <tr>
+              <tr key={row[0]}>
                 <td>{row[0]}</td>
                 <td>{parseInt(row[1])}</td>
               </tr>

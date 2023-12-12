@@ -7,6 +7,8 @@ import SourceSelect from "@/components/SourceSelect";
 import TowerSelect from "@/components/TowerSelect";
 import BaseButton from "@/components/BaseButton";
 import FormInput from "@/components/FormInput";
+import TowerConfigurationTable from "@/components/TowerConfigurationTable";
+import ConductorConfigurationTable from "@/components/ConductorConfigurationTable";
 
 interface Props {}
 
@@ -38,37 +40,10 @@ const EditTransmissionLine: React.FC<Props> = (props) => {
             placeholder="Example"
             required
           />
-          <FormInput
-            label="Distance (km)"
-            name="distance"
-            type="number"
-            placeholder="1000"
-            required
-          />
-          <FormInput
-            label="Number of Towers"
-            name="numTowers"
-            type="number"
-            placeholder="3"
-            required
-          />
-          <FormInput
-            label="Phases"
-            name="phases"
-            type="number"
-            placeholder="3"
-            required
-          />
-          <FormInput
-            label="Tower Resistance"
-            name="towerResistance"
-            type="number"
-            placeholder="15"
-            required
-          />
           <SourceSelect label="From" name="from" id="from" />
           <SourceSelect label="To" name="to" id="to" />
-          <TowerSelect label="Tower Geometry" name="geometry" />
+          <ConductorConfigurationTable />
+          <TowerConfigurationTable />
           <BaseButton type="submit">Save Changes</BaseButton>
         </StyledForm>
       </Formik>

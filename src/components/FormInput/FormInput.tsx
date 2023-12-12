@@ -3,7 +3,7 @@ import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
 interface CustomProps {
-  label: string;
+  label?: string;
 }
 
 type Props = CustomProps & FieldHookConfig<string>;
@@ -40,8 +40,7 @@ const Input = styled.input`
   font-size: 1rem;
   line-height: 1.5rem;
   color: hsl(204 10% 10%);
-  box-shadow:
-    inset 0 0 0 1px rgba(0 0 0 / 0.1),
+  box-shadow: inset 0 0 0 1px rgba(0 0 0 / 0.1),
     inset 0 2px 5px 0 rgba(0 0 0 / 0.05);
 
   &:placeholder {

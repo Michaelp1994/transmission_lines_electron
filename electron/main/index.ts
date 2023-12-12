@@ -111,12 +111,18 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
-ipcMain.on("port", (event) => {
+ipcMain.on("send-port", (event) => {
   const port = event.ports[0];
   port.on("message", async (event) => {
-    const results = await buildCircuit();
-    port.postMessage(results);
-    //buildScript(event.data.sources, event.data.transmissionLines);
+    try {
+      const results = await buildScript(
+        event.data.sources,
+        event.data.transmissionLines
+      );
+      port.postMessage(results);
+    } catch (e) {
+      throw e;
+    }
   });
   port.start();
 });
