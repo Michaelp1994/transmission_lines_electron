@@ -3,7 +3,6 @@ import SourcesSlice from "./SourcesSlice";
 import TransmissionLinesSlice from "./TransmissionLinesSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk from "redux-thunk";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const persistConfig = {
@@ -14,15 +13,16 @@ const persistConfig = {
 const persistedSources = persistReducer(persistConfig, SourcesSlice);
 const persistedTransmissionLines = persistReducer(
   persistConfig,
-  TransmissionLinesSlice,
+  TransmissionLinesSlice
 );
 
 export const store = configureStore({
-  middleware: [thunk],
   reducer: {
     sources: persistedSources,
     transmissionLines: persistedTransmissionLines,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export const persistor = persistStore(store);

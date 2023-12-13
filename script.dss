@@ -1,58 +1,43 @@
 New Circuit.Toyota bus1=B_Toyota basekv=138 phases=3 x1r1=4 x0r0=3
-New Reactor.Toyota_RT bus1=B_Toyota.99 bus2=B_Toyota.0 phases=1 R=2 X=0
+New Reactor.Toyota_RT bus1=B_Toyota.99 bus2=B_Toyota.0 phases=1 R=15 X=0
 New Vsource.Esoura bus1=B_Esoura basekv=138 phases=3 x1r1=4 x0r0=3
-New Reactor.Esoura_RT bus1=B_Esoura.99 bus2=B_Esoura.0 phases=1 R=2 X=0
+New Reactor.Esoura_RT bus1=B_Esoura.99 bus2=B_Esoura.0 phases=1 R=15 X=0
 New LineSpacing.K1 nConds=8 nPhases=8 x=[-3.15 -3.15 -3.15 3.15 3.15 3.15 -1.225 1.225]
 ~ h=[16.08 19.74 23.4 16.08 19.74 23.4 25.23 25.23] units=m
-New WireData.Linnet rac=0.2081 rUnits=km gmrac=7.41 gmrUnits=mm radUnits=mm diam=18.29
+New WireData.Thrasher rac=0.0322 rUnits=km gmrac=18.14 gmrUnits=mm radUnits=mm diam=45.77
 New WireData.5_16ths rac=5.25 rUnits=km gmrac=4.6073483 gmrUnits=mm radUnits=mm diam=7.94
-New LineGeometry.Linha1_K1 nconds=8 nphases=8 reduce=false spacing=K1
-~ wires=[Linnet Linnet Linnet Linnet Linnet Linnet 5_16ths 5_16ths]
-New Line.Linha1_S1 bus1=B_Toyota.1.2.3.1.2.3.99.99 bus2=Linha1_Torre_1.1.2.3.4.5.6.7.8 length=1 phases=8
-~ geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_1_RT bus1=Linha1_Torre_1.7.8 bus2=Linha1_Torre_1.0.0 phases=2 R=22 X=0
-New Line.Linha1_S2 bus1=Linha1_Torre_1.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_2.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_2_RT bus1=Linha1_Torre_2.7.8 bus2=Linha1_Torre_2.0.0 phases=2 R=22 X=0
-New Line.Linha1_S3 bus1=Linha1_Torre_2.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_3.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_3_RT bus1=Linha1_Torre_3.7.8 bus2=Linha1_Torre_3.0.0 phases=2 R=22 X=0
-New Line.Linha1_S4 bus1=Linha1_Torre_3.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_4.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_4_RT bus1=Linha1_Torre_4.7.8 bus2=Linha1_Torre_4.0.0 phases=2 R=22 X=0
-New Line.Linha1_S5 bus1=Linha1_Torre_4.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_5.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_5_RT bus1=Linha1_Torre_5.7.8 bus2=Linha1_Torre_5.0.0 phases=2 R=22 X=0
-New Line.Linha1_S6 bus1=Linha1_Torre_5.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_6.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_6_RT bus1=Linha1_Torre_6.7.8 bus2=Linha1_Torre_6.0.0 phases=2 R=22 X=0
-New Line.Linha1_S7 bus1=Linha1_Torre_6.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_7.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_7_RT bus1=Linha1_Torre_7.7.8 bus2=Linha1_Torre_7.0.0 phases=2 R=22 X=0
-New Line.Linha1_S8 bus1=Linha1_Torre_7.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_8.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_8_RT bus1=Linha1_Torre_8.7.8 bus2=Linha1_Torre_8.0.0 phases=2 R=22 X=0
-New Line.Linha1_S9 bus1=Linha1_Torre_8.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_9.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_9_RT bus1=Linha1_Torre_9.7.8 bus2=Linha1_Torre_9.0.0 phases=2 R=22 X=0
-New Line.Linha1_S10 bus1=Linha1_Torre_9.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_10.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_10_RT bus1=Linha1_Torre_10.7.8 bus2=Linha1_Torre_10.0.0 phases=2 R=15 X=0
-New Line.Linha1_S11 bus1=Linha1_Torre_10.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_11.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_11_RT bus1=Linha1_Torre_11.7.8 bus2=Linha1_Torre_11.0.0 phases=2 R=22 X=0
-New Line.Linha1_S12 bus1=Linha1_Torre_11.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_12.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_12_RT bus1=Linha1_Torre_12.7.8 bus2=Linha1_Torre_12.0.0 phases=2 R=25 X=0
-New Line.Linha1_S13 bus1=Linha1_Torre_12.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_13.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_13_RT bus1=Linha1_Torre_13.7.8 bus2=Linha1_Torre_13.0.0 phases=2 R=22 X=0
-New Line.Linha1_S14 bus1=Linha1_Torre_13.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_14.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_14_RT bus1=Linha1_Torre_14.7.8 bus2=Linha1_Torre_14.0.0 phases=2 R=22.12 X=0
-New Line.Linha1_S15 bus1=Linha1_Torre_14.1.2.3.4.5.6.7.8 bus2=Linha1_Torre_15.1.2.3.4.5.6.7.8 length=1
-~ phases=8 geometry=Linha1_K1 units=km
-New Reactor.Linha1_Torre_15_RT bus1=Linha1_Torre_15.7.8 bus2=Linha1_Torre_15.0.0 phases=2 R=22 X=0
-New Line.Linha1_S16 bus1=Linha1_Torre_15.1.2.3.4.5.6.7.8 bus2=B_Esoura.1.2.3.1.2.3.99.99 length=1
-~ phases=8 geometry=Linha1_K1 units=km
+New LineGeometry.Line1_K1 nconds=8 nphases=8 reduce=false spacing=K1
+~ wires=[Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher 5_16ths 5_16ths]
+New Line.Line1_S1 bus1=B_Toyota.1.2.3.1.2.3.99.99 bus2=Line1_T1.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T1_RT bus1=Line1_T1.7.8 bus2=Line1_T1.0.0 phases=2 R=15 X=0
+New Line.Line1_S2 bus1=Line1_T1.1.2.3.4.5.6.7.8 bus2=Line1_T2.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T2_RT bus1=Line1_T2.7.8 bus2=Line1_T2.0.0 phases=2 R=15 X=0
+New Line.Line1_S3 bus1=Line1_T2.1.2.3.4.5.6.7.8 bus2=Line1_T3.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T3_RT bus1=Line1_T3.7.8 bus2=Line1_T3.0.0 phases=2 R=15 X=0
+New Line.Line1_S4 bus1=Line1_T3.1.2.3.4.5.6.7.8 bus2=Line1_T4.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T4_RT bus1=Line1_T4.7.8 bus2=Line1_T4.0.0 phases=2 R=15 X=0
+New Line.Line1_S5 bus1=Line1_T4.1.2.3.4.5.6.7.8 bus2=Line1_T5.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T5_RT bus1=Line1_T5.7.8 bus2=Line1_T5.0.0 phases=2 R=15 X=0
+New Line.Line1_S6 bus1=Line1_T5.1.2.3.4.5.6.7.8 bus2=Line1_T6.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T6_RT bus1=Line1_T6.7.8 bus2=Line1_T6.0.0 phases=2 R=15 X=0
+New Line.Line1_S7 bus1=Line1_T6.1.2.3.4.5.6.7.8 bus2=Line1_T7.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T7_RT bus1=Line1_T7.7.8 bus2=Line1_T7.0.0 phases=2 R=15 X=0
+New Line.Line1_S8 bus1=Line1_T7.1.2.3.4.5.6.7.8 bus2=Line1_T8.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T8_RT bus1=Line1_T8.7.8 bus2=Line1_T8.0.0 phases=2 R=15 X=0
+New Line.Line1_S9 bus1=Line1_T8.1.2.3.4.5.6.7.8 bus2=Line1_T9.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T9_RT bus1=Line1_T9.7.8 bus2=Line1_T9.0.0 phases=2 R=15 X=0
+New Line.Line1_S10 bus1=Line1_T9.1.2.3.4.5.6.7.8 bus2=Line1_T10.1.2.3.4.5.6.7.8 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.Line1_T10_RT bus1=Line1_T10.7.8 bus2=Line1_T10.0.0 phases=2 R=15 X=0
+New Line.Line1_S11 bus1=Line1_T10.1.2.3.4.5.6.7.8 bus2=B_Esoura.1.2.3.1.2.3.99.99 length=1.5 phases=8
+~ geometry=Line1_K1 units=km
 New Fault.SHORT_CIRCUIT bus1=B_Toyota.1 bus2=B_Toyota.99 phases=1
