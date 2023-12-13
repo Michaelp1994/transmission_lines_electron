@@ -1,10 +1,20 @@
 import styled from "styled-components";
-import React from "react";
-import conductors from "@shared/conductorTypes.json";
+import React, { useEffect, useState } from "react";
+// import conductors from "@shared/conductorTypes.json";
 import BaseTable from "@/components/BaseTable";
 interface Props {}
 
 const ConductorTable: React.FC<Props> = (props) => {
+  const [conductorTypes, setConductorTypes] = useState([]);
+
+  useEffect(() => {
+    async function getConductors() {
+      const conductors = await window.api.getConductors();
+      console.log(conductors);
+      setConductorTypes(conductors);
+    }
+    getConductors();
+  }, []);
   const columns = [
     {
       title: "Name",
@@ -25,7 +35,7 @@ const ConductorTable: React.FC<Props> = (props) => {
   ];
   return (
     <Wrapper>
-      <BaseTable data={conductors} columns={columns} />
+      <BaseTable data={conductorTypes} columns={columns} />
     </Wrapper>
   );
 };

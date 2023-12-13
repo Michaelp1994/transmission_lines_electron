@@ -1,11 +1,13 @@
+import "reflect-metadata";
 import { app, shell, BrowserWindow } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import setupPorts from "./communication";
+import setupApi from "./api";
 import installExtension, {
   REDUX_DEVTOOLS,
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
+import { dataSource } from "./database/dataSource";
 
 function createWindow() {
   // Create the browser window.
@@ -46,7 +48,7 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // Set app user model id for windows
   electronApp.setAppUserModelId("com.electron");
 
@@ -63,7 +65,9 @@ app.whenReady().then(() => {
   });
 
   createWindow();
-
+  dataSource.initialize().then(() => {
+    console.log("Database initialized");
+  });
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -82,4 +86,4 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-setupPorts();
+setupApi();

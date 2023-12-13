@@ -1,3 +1,4 @@
+import { ConductorType } from "@models/ConductorType.model";
 import buildScript from "./buildScript";
 import { ipcMain } from "electron";
 
@@ -17,5 +18,12 @@ export default function setupPorts() {
       }
     });
     port.start();
+  });
+
+  ipcMain.handle("get-conductors", async () => {
+    console.log("get-conductors");
+    const allConductorTypes = await ConductorType.find();
+    console.log(allConductorTypes);
+    return allConductorTypes;
   });
 }

@@ -6,12 +6,17 @@
     "src/preload/*",
     "src/types.d.ts"
   ],
+
   "compilerOptions": {
     "composite": true,
     "types": ["electron-vite/node"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@models/*": ["src/main/database/models/*"]
     }
   }
 }
