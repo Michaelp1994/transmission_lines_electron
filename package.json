@@ -1,67 +1,45 @@
 {
-  "name": "electron-vite-react",
-  "version": "2.2.0",
-  "main": "dist-electron/main/index.js",
-  "description": "Electron Vite React boilerplate.",
-  "author": "",
+  "name": "transmission-lines",
+  "version": "0.0.1",
+  "main": "./out/main/index.js",
+  "description": "Electron app for calculating fault current along a transmission line.",
+  "author": "Michael Poulgrain",
   "license": "MIT",
   "private": true,
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
-    }
-  },
   "scripts": {
-    "dev": "vite",
-    "project": "ts-node project",
-    "build": "tsc && vite build && electron-builder",
-    "preview": "vite preview",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev --watch",
+    "prebuild": "electron-vite build"
   },
   "dependencies": {
     "@ariakit/react": "^0.3.9",
+    "@electron-toolkit/preload": "^2.0.0",
+    "@electron-toolkit/utils": "^2.0.1",
     "@reduxjs/toolkit": "^2.0.1",
     "better-sqlite3": "^9.2.2",
-    "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "^6.1.7",
     "formik": "^2.4.5",
     "opendss-fault-study": "^0.0.5",
     "opendss-node-interface": "^0.0.8",
-    "react-aria": "^3.30.0",
     "react-icons": "^4.12.0",
-    "react-konva": "^18.2.10",
-    "react-persist": "^1.0.2",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.20.1",
-    "react-stately": "^3.28.0",
-    "reactflow": "^11.10.1",
     "redux-persist": "^6.0.0",
-    "styled-components": "^6.1.1",
-    "winax": "^3.4.1"
+    "styled-components": "^6.1.1"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.2.0",
-    "@electron-forge/maker-deb": "^7.2.0",
-    "@electron-forge/maker-rpm": "^7.2.0",
-    "@electron-forge/maker-squirrel": "^7.2.0",
-    "@electron-forge/maker-zip": "^7.2.0",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
-    "@electron-forge/plugin-vite": "^7.2.0",
+    "@electron-toolkit/tsconfig": "^1.0.1",
     "@electron/rebuild": "^3.4.1",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "electron": "^28.0.0",
-    "nodemon": "^3.0.2",
+    "electron-builder": "^24.9.1",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-vite": "^1.0.29",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.8",
-    "vite-plugin-electron": "^0.15.5",
-    "vite-plugin-electron-renderer": "^0.14.5"
+    "tree-kill": "^1.2.2",
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
