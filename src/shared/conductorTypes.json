@@ -1520,14 +1520,6 @@
     "xc": 0.23
   },
   {
-    "id": 82,
-    "name": "AWG4",
-    "diameter_conductor": 12.7,
-    "cca": 1000,
-    "ac_resistance_75": 2.33,
-    "gmr": 4.6073483
-  },
-  {
     "id": 83,
     "name": "5_16ths",
     "diameter_conductor": 7.94,

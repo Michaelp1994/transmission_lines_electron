@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import geometries from "@/assets/geometries.json";
+import geometries from "@shared/geometries.json";
 import BaseTable from "@/components/BaseTable";
 interface Props {}
 

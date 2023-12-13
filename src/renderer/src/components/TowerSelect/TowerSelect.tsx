@@ -1,5 +1,5 @@
 import FormSelect from "../FormSelect";
-import geometriesList from "@/assets/geometries.json";
+import geometriesList from "@shared/geometries.json";
 
 interface Props {
   label?: string;

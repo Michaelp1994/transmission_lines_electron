@@ -1,5 +1,5 @@
 import FormSelect from "../FormSelect";
-import conductorsList from "@/assets/conductorTypes.json";
+import conductorsList from "@shared/conductorTypes.json";
 
 interface Props {
   label?: string;

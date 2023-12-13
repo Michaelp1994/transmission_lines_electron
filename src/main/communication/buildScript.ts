@@ -1,5 +1,5 @@
-import conductors from "./conductors.json";
-import geometries from "./geometries.json";
+import conductors from "@shared/conductorTypes.json";
+import geometries from "@shared/geometries.json";
 import {
   Circuit,
   Fault,

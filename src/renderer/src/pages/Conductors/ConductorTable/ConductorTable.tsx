@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import conductors from "@/assets/conductorTypes.json";
+import conductors from "@shared/conductorTypes.json";
 import BaseTable from "@/components/BaseTable";
 interface Props {}
 
