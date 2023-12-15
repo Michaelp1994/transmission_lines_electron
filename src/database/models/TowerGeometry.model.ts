@@ -22,5 +22,5 @@ export class TowerGeometry extends BaseEntity {
       cascade: true,
     }
   )
-  conductors: ConductorLocation[];
+  conductors: Relation<ConductorLocation[]>;
 }

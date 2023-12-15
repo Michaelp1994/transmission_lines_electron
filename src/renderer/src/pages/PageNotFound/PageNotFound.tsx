@@ -1,10 +1,16 @@
+import Routes from "@/router/RoutePathsEnum";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import React from "react";
 
 interface Props {}
 
 const PageNotFound: React.FC<Props> = (props) => {
-  return <Wrapper>Sorry, page not found!</Wrapper>;
+    return (
+        <Wrapper>
+            <div>Sorry, page not found!</div>
+            <Link to={Routes.HOME.path}>Go Home</Link>
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.div``;

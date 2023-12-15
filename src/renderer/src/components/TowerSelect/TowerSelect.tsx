@@ -1,21 +1,29 @@
+import { useEffect, useState } from "react";
 import FormSelect from "../FormSelect";
-import geometriesList from "@shared/geometries.json";
 
 interface Props {
-  label?: string;
-  name: string;
+    label?: string;
+    name: string;
 }
 
 const TowerSelect: React.FC<Props> = (props) => {
-  return (
-    <FormSelect label={props.label} name={props.name}>
-      {geometriesList.map((geometry, index) => (
-        <option key={index} value={geometry.id}>
-          {geometry.name}
-        </option>
-      ))}
-    </FormSelect>
-  );
+    const [towerGeometries, setTowerGeometries] = useState<TowerGeometry[]>([]);
+    useEffect(() => {
+        async function getGeometries() {
+            const geometries = await window.api.getGeometries();
+            setTowerGeometries(geometries);
+        }
+        getGeometries();
+    }, []);
+    return (
+        <FormSelect label={props.label} name={props.name}>
+            {towerGeometries.map((geometry, index) => (
+                <option key={index} value={geometry.id}>
+                    {geometry.name}
+                </option>
+            ))}
+        </FormSelect>
+    );
 };
 
 export default TowerSelect;

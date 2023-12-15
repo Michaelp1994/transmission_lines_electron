@@ -1,54 +1,52 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import SourcesList from "./SourcesList";
 import TransmissionLinesList from "./TransmissionLinesList";
 import { useAppSelector } from "@/store";
+import BaseButton from "@/components/BaseButton";
+import Routes from "@/router/RoutePathsEnum";
 
 export default function Home() {
-  const transmissionLines = useAppSelector(
-    (state) => state.transmissionLines.transmissionLines
-  );
-  const sources = useAppSelector((state) => state.sources.sources);
-  return (
-    <StyledWrapper>
-      <SourcesSection>
-        <Heading>Sources </Heading>
-        <AnchorTag to="/sources/new">Add Source</AnchorTag>
-        <SourcesList />
-      </SourcesSection>
-      <TransmissionLinesSection>
-        <Heading>Transmission Lines</Heading>
-        <AnchorTag to="/transmissionLines/new">Add Transmission Line</AnchorTag>
-        <TransmissionLinesList />
-      </TransmissionLinesSection>
-      <Link to="/generate">Solve Circuit!</Link>
-    </StyledWrapper>
-  );
+    const transmissionLines = useAppSelector(
+        (state) => state.transmissionLines.transmissionLines
+    );
+    const sources = useAppSelector((state) => state.sources.sources);
+    return (
+        <StyledWrapper>
+            <SourcesSection>
+                <Heading>Sources </Heading>
+                <BaseButton to={Routes.ADD_SOURCE.path}>Add Source</BaseButton>
+                <SourcesList />
+            </SourcesSection>
+            <TransmissionLinesSection>
+                <Heading>Transmission Lines</Heading>
+                <BaseButton to={Routes.ADD_TRANSMISSION_LINE.path}>
+                    Add Transmission Line
+                </BaseButton>
+                <TransmissionLinesList />
+            </TransmissionLinesSection>
+            <BaseButton to={Routes.GENERATE_RESULTS.path}>
+                Solve Circuit!
+            </BaseButton>
+        </StyledWrapper>
+    );
 }
 
 const StyledWrapper = styled.div``;
 
 const Heading = styled.h1`
-  font-size: 2rem;
+    font-size: 2rem;
 `;
 
 const SourcesSection = styled.article`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding-bottom: 2rem;
-`;
-
-const AnchorTag = styled(Link)`
-  display: block;
-  width: 100%;
-  padding-top: 8px;
-  padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 2rem;
 `;
 
 const TransmissionLinesSection = styled.article`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `;

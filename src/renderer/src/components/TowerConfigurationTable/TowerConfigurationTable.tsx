@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React from "react";
 import { ArrayHelpers, FieldArray, FormikProps } from "formik";
 import BaseButton from "../BaseButton";
 import FormInput from "../FormInput";

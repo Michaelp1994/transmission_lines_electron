@@ -38,6 +38,7 @@ export default async function buildCircuit(
     if (!source) throw Error(`Can't find source ${id}`);
     return source;
   }
+  console.log("Building Circuit");
   const results: Array<Array<string | number>> = [];
   const study = new GeneralStudy();
   const circuit = new Circuit(sources[0].name, {
@@ -106,9 +107,9 @@ export default async function buildCircuit(
     const wireData = findConductor(typeId);
 
     const wireDataClass = new WireData(wireData.name, {
-      diam: wireData.diameter_conductor,
+      diam: wireData.outerDiameter,
       gmrac: wireData.gmr,
-      rac: wireData.ac_resistance_75,
+      rac: wireData.acResistance75,
       radUnits: "mm",
       gmrUnits: "mm",
       rUnits: "km",

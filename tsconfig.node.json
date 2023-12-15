@@ -1,22 +1,32 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": [
-    "electron.vite.config.*",
-    "src/main/**/*",
-    "src/preload/*",
-    "src/types.d.ts"
-  ],
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+    "include": [
+        "electron.vite.config.*",
+        "eslint.config.js",
+        "prettier.config.js",
+        "src/main/**/*",
+        "src/database/*",
+        "src/database/**/*",
+        "src/api/**/*",
+        "src/preload/*",
+        "src/types.d.ts"
+    ],
 
-  "compilerOptions": {
-    "composite": true,
-    "types": ["electron-vite/node"],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "baseUrl": ".",
-    "paths": {
-      "@shared/*": ["src/shared/*"],
-      "@models/*": ["src/main/database/models/*"]
+    "compilerOptions": {
+        //"isolatedModules": true,
+        "composite": true,
+        "types": ["electron-vite/node"],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        // "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@shared/*": ["src/shared/*"],
+            "@database/*": ["src/database/*"],
+            "@models/*": ["src/database/models/*"],
+            "@api/*": ["src/api/*"]
+        }
     }
-  }
 }

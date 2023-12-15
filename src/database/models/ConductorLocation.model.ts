@@ -4,6 +4,7 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  Relation,
 } from "typeorm";
 import { TowerGeometry } from "./TowerGeometry.model";
 
@@ -16,5 +17,5 @@ export class ConductorLocation extends BaseEntity {
   @Column("real")
   y: number;
   @ManyToOne(() => TowerGeometry, (towerGeometery) => towerGeometery.conductors)
-  geometry: TowerGeometry;
+  geometry: Relation<TowerGeometry>;
 }

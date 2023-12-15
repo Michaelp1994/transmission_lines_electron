@@ -1,11 +1,8 @@
 import { ElectronAPI } from "@electron-toolkit/preload";
-
+import { Api } from "@api/api";
 declare global {
-  interface Window {
-    electron: ElectronAPI;
-    api: {
-      sendPort: (port: MessagePort) => void;
-      getConductors: () => Promise<any>;
-    };
-  }
+    interface Window {
+        //electron: ElectronAPI;
+        api: Api;
+    }
 }
