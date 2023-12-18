@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
-import { useAppSelector } from "@/store";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "@/store";
 import Routes from "@/router/RoutePathsEnum";
 
 interface Props {}
 
-const GenerateResults: React.FC<Props> = (props) => {
+const GenerateResults: React.FC<Props> = () => {
     const sources = useAppSelector((state) => state.sources.sources);
     const transmissionLines = useAppSelector(
         (state) => state.transmissionLines.transmissionLines
@@ -14,14 +14,14 @@ const GenerateResults: React.FC<Props> = (props) => {
     const [results, setResults] = useState([]);
     useEffect(() => {
         async function generateResults() {
-            const results = await window.api.solveCircuit(
+            const tempResults = await window.api.solveCircuit(
                 sources,
                 transmissionLines
             );
-            setResults(results);
+            setResults(tempResults);
         }
         generateResults();
-    }, []);
+    }, [sources, transmissionLines]);
 
     return (
         <Wrapper>
@@ -34,14 +34,12 @@ const GenerateResults: React.FC<Props> = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {results.map((row) => {
-                        return (
-                            <tr key={row[0]}>
-                                <td>{row[0]}</td>
-                                <td>{parseInt(row[1])}</td>
-                            </tr>
-                        );
-                    })}
+                    {results.map((row) => (
+                        <tr key={row[0]}>
+                            <td>{row[0]}</td>
+                            <td>{parseInt(row[1], 10)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </Wrapper>

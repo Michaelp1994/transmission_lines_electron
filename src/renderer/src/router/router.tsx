@@ -1,6 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
-import DefaultLayout from "@/layouts/DefaultLayout";
+import { createBrowserRouter , RouteObject } from "react-router-dom";
+import Routes from "./RoutePathsEnum";
 
+import DefaultLayout from "@/layouts/DefaultLayout";
 import Home from "@/pages/Home";
 import AddTransmissionLine from "@/pages/AddTransmissionLine/AddTransmissionLine";
 import GeneratePage from "@/pages/GenerateResults";
@@ -11,10 +12,10 @@ import EditSource from "@/pages/EditSource";
 import PageNotFound from "@/pages/PageNotFound";
 import AddSource from "@/pages/AddSource";
 import WelcomePage from "@/pages/WelcomePage";
-import { RouteObject } from "react-router-dom";
-import AddConductor from "@/pages/AddConductor";
-import Routes from "./RoutePathsEnum";
+import AddConductorType from "@/pages/AddConductorType";
 import AddTowerGeometry from "@/pages/AddTowerGeometry";
+import EditConductorType from "@/pages/EditConductorType";
+import EditTowerGeometry from "@/pages/EditTowerGeometry";
 
 const routes: RouteObject[] = [
     {
@@ -43,7 +44,7 @@ const routes: RouteObject[] = [
             },
             {
                 path: Routes.ADD_CONDUCTOR.path,
-                element: <AddConductor />,
+                element: <AddConductorType />,
             },
             {
                 path: Routes.GENERATE_RESULTS.path,
@@ -54,8 +55,16 @@ const routes: RouteObject[] = [
                 element: <EditTransmissionLine />,
             },
             {
+                path: Routes.EDIT_TOWER_GEOMETRY.path,
+                element: <EditTowerGeometry />,
+            },
+            {
                 path: Routes.EDIT_SOURCE.path,
                 element: <EditSource />,
+            },
+            {
+                path: Routes.EDIT_CONDUCTOR_TYPE.path,
+                element: <EditConductorType />,
             },
             {
                 path: Routes.TOWER_GEOMETRIES.path,

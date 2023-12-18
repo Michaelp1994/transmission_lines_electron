@@ -1,20 +1,25 @@
+/* eslint-disable no-console */
 import "reflect-metadata";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { app, shell, BrowserWindow } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { setupApi } from "@api/index";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import installExtension, {
     REDUX_DEVTOOLS,
     REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
-import { dataSource } from "@database/dataSource";
+import dataSource from "@database/dataSource";
+import appIcon from "../../resources/favicon.ico?asset";
 
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         show: false,
         autoHideMenuBar: true,
-        //...(process.platform === "linux" ? { icon } : {}),
+        icon: appIcon,
+        // ...(process.platform === "linux" ? { icon: "favicon.ico" } : {}),
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
             sandbox: false,
@@ -35,8 +40,8 @@ function createWindow() {
 
     // HMR for renderer base on electron-vite cli.
     // Load the remote URL for development or the local html file for production.
-    if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-        mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+    if (is.dev && process.env.ELECTRON_RENDERER_URL) {
+        mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
     } else {
         mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
     }
@@ -66,7 +71,7 @@ app.whenReady().then(async () => {
     dataSource.initialize().then(() => {
         console.log("Database initialized");
     });
-    app.on("activate", function () {
+    app.on("activate", () => {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
         if (BrowserWindow.getAllWindows().length === 0) createWindow();

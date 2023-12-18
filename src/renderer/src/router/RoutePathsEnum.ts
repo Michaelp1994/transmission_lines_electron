@@ -16,7 +16,7 @@ const ROUTES = {
     EDIT_SOURCE: route("sources/:id/edit", {
         params: { id: number() },
     }),
-    EDIT_CONDUCTOR: route("conductors/:id/edit", {
+    EDIT_CONDUCTOR_TYPE: route("conductors/:id/edit", {
         params: { id: number() },
     }),
     EDIT_TOWER_GEOMETRY: route("tower-geometries/:id/edit", {

@@ -11,22 +11,6 @@ interface SourceInput {
     resistance: number;
 }
 
-interface ConductorType {
-    id: number;
-    name: string;
-    surfaceArea?: number;
-    stranding?: string;
-    outerDiameter?: number;
-    coreDiameter?: number;
-    layers?: number;
-    currentCapacity?: number;
-    dcResistance25?: number;
-    acResistance25?: number;
-    acResistance50?: number;
-    acResistance75?: number;
-    gmr?: number;
-}
-
 interface ConductorTypeInput {
     name: string;
     surfaceArea?: number;
@@ -49,13 +33,7 @@ interface ConductorLocationsInput {
 
 interface TowerGeometryInput {
     name: string;
-    locations: ConductorLocationsInput[];
-}
-
-interface TowerGeometry {
-    id: number;
-    name: string;
-    locations: ConductorLocationsInput[];
+    conductors: ConductorLocationsInput[];
 }
 
 interface TransmissionLineInput {
@@ -80,4 +58,26 @@ interface TransmissionTowerInput {
     resistance: number;
     distance: number;
     geometry: number;
+}
+
+interface TowerGeometry {
+    id: number;
+    name: string;
+    conductors: ConductorLocationsInput[];
+}
+
+interface ConductorType {
+    id: number;
+    name: string;
+    surfaceArea?: number;
+    stranding?: string;
+    outerDiameter?: number;
+    coreDiameter?: number;
+    layers?: number;
+    currentCapacity?: number;
+    dcResistance25?: number;
+    acResistance25?: number;
+    acResistance50?: number;
+    acResistance75?: number;
+    gmr?: number;
 }

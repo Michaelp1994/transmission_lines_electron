@@ -1,40 +1,71 @@
 import styled from "styled-components";
-
-interface Column {
-    title: string;
-    key: string;
-}
+import {
+    ColumnDef,
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+} from "@tanstack/react-table";
 
 interface Props<T> {
     data: T[];
-    columns: Column[];
+    columns: ColumnDef<T, any>[];
 }
 
-export function BaseTable<T>({ data, columns }: Props<T>): JSX.Element {
+function BaseTable<T>({ data, columns }: Props<T>): JSX.Element {
+    const table = useReactTable({
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
     return (
         <Wrapper>
             <Table>
                 <TableHead>
-                    <TableHeadRow>
-                        {columns.map((column, index) => {
-                            return <td key={index}>{column.title}</td>;
-                        })}
-                    </TableHeadRow>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <tr key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                                <th key={header.id}>
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                              header.column.columnDef.header,
+                                              header.getContext()
+                                          )}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
                 </TableHead>
                 <TableBody>
-                    {data.map((row, index) => {
-                        return (
-                            <TableRow key={index}>
-                                {columns.map((column, index) => {
-                                    return (
-                                        <td key={index}>{row[column.key]}</td>
-                                    );
-                                })}
-                            </TableRow>
-                        );
-                    })}
-                    <tr></tr>
+                    {table.getRowModel().rows.map((row) => (
+                        <tr key={row.id}>
+                            {row.getVisibleCells().map((cell) => (
+                                <td key={cell.id}>
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
                 </TableBody>
+                <TableFooter>
+                    {table.getFooterGroups().map((footerGroup) => (
+                        <tr key={footerGroup.id}>
+                            {footerGroup.headers.map((header) => (
+                                <th key={header.id}>
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                              header.column.columnDef.footer,
+                                              header.getContext()
+                                          )}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </TableFooter>
             </Table>
         </Wrapper>
     );
@@ -44,20 +75,20 @@ const Wrapper = styled.div``;
 const Table = styled.table`
     width: 100%;
 `;
-const TableHead = styled.thead``;
-const TableHeadRow = styled.tr`
-    & td {
-        padding: 8px;
+const TableHead = styled.thead`
+    text-align: left;
+    & tr th {
+        padding: 16px;
     }
 `;
 const TableBody = styled.tbody`
     & tr:nth-child(even) {
         background-color: #f2f2f2;
     }
-`;
-const TableRow = styled.tr`
-    & td {
+    & tr td {
         padding: 8px;
     }
 `;
+
+const TableFooter = styled.tfoot``;
 export default BaseTable;

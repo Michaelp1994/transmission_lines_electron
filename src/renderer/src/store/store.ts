@@ -1,28 +1,30 @@
 import { configureStore } from "@reduxjs/toolkit";
-import SourcesSlice from "./SourcesSlice";
-import TransmissionLinesSlice from "./TransmissionLinesSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-
+import TransmissionLinesSlice from "./TransmissionLinesSlice";
+import SourcesSlice from "./SourcesSlice";
+// import { projectApi } from "@/services/api";
 const persistConfig = {
-  key: "root",
-  storage,
+    key: "root",
+    storage,
 };
 
 const persistedSources = persistReducer(persistConfig, SourcesSlice);
 const persistedTransmissionLines = persistReducer(
-  persistConfig,
-  TransmissionLinesSlice
+    persistConfig,
+    TransmissionLinesSlice
 );
 
 export const store = configureStore({
-  reducer: {
-    sources: persistedSources,
-    transmissionLines: persistedTransmissionLines,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    reducer: {
+        sources: persistedSources,
+        transmissionLines: persistedTransmissionLines,
+        // [projectApi.reducerPath]: projectApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({ serializableCheck: false }),
+    // .concat(projectApi.middleware),
 });
 
 export const persistor = persistStore(store);

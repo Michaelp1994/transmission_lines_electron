@@ -1,36 +1,30 @@
 import styled from "styled-components";
-
-import SourcesList from "./SourcesList";
-import TransmissionLinesList from "./TransmissionLinesList";
-import { useAppSelector } from "@/store";
+import SourcesList from "@/features/sources/components/SourcesList";
+import TransmissionLinesList from "@/features/transmissionLines/components/TransmissionLinesList";
 import BaseButton from "@/components/BaseButton";
 import Routes from "@/router/RoutePathsEnum";
 
-export default function Home() {
-    const transmissionLines = useAppSelector(
-        (state) => state.transmissionLines.transmissionLines
-    );
-    const sources = useAppSelector((state) => state.sources.sources);
-    return (
-        <StyledWrapper>
-            <SourcesSection>
-                <Heading>Sources </Heading>
-                <BaseButton to={Routes.ADD_SOURCE.path}>Add Source</BaseButton>
-                <SourcesList />
-            </SourcesSection>
-            <TransmissionLinesSection>
-                <Heading>Transmission Lines</Heading>
-                <BaseButton to={Routes.ADD_TRANSMISSION_LINE.path}>
-                    Add Transmission Line
-                </BaseButton>
-                <TransmissionLinesList />
-            </TransmissionLinesSection>
-            <BaseButton to={Routes.GENERATE_RESULTS.path}>
-                Solve Circuit!
+interface Props {}
+
+const Home: React.FC<Props> = () => (
+    <StyledWrapper>
+        <SourcesSection>
+            <Heading>Sources </Heading>
+            <BaseButton to={Routes.ADD_SOURCE.path}>Add Source</BaseButton>
+            <SourcesList />
+        </SourcesSection>
+        <TransmissionLinesSection>
+            <Heading>Transmission Lines</Heading>
+            <BaseButton to={Routes.ADD_TRANSMISSION_LINE.path}>
+                Add Transmission Line
             </BaseButton>
-        </StyledWrapper>
-    );
-}
+            <TransmissionLinesList />
+        </TransmissionLinesSection>
+        <BaseButton to={Routes.GENERATE_RESULTS.path}>
+            Solve Circuit!
+        </BaseButton>
+    </StyledWrapper>
+);
 
 const StyledWrapper = styled.div``;
 
@@ -49,4 +43,7 @@ const TransmissionLinesSection = styled.article`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin-bottom: 24px;
 `;
+
+export default Home;

@@ -1,20 +1,18 @@
 import styled from "styled-components";
-import ConductorTable from "./ConductorTable";
+import { ConductorTypeTable } from "@/features/conductorTypes";
 import BaseButton from "@/components/BaseButton";
 import Routes from "@/router/RoutePathsEnum";
 
 interface Props {}
 
-const Conductors: React.FC<Props> = () => {
-    return (
+const Conductors: React.FC<Props> = () => (
         <Wrapper>
             <BaseButton to={Routes.ADD_CONDUCTOR.path}>
                 Add Conductor
             </BaseButton>
-            <ConductorTable />
+            <ConductorTypeTable />
         </Wrapper>
     );
-};
 
 const Wrapper = styled.div``;
 export default Conductors;
