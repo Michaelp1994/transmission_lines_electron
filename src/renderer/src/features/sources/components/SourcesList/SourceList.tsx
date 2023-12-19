@@ -3,7 +3,7 @@ import { MdClose, MdInfoOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { removeSource } from "@/store/SourcesSlice";
 import { useAppDispatch, useAppSelector } from "@/store";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 
@@ -11,24 +11,24 @@ const SourcesList: React.FC<Props> = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    function remove(index: number) {
-        dispatch(removeSource(index));
+    function remove(id: string) {
+        dispatch(removeSource(id));
     }
 
-    function navigateTo(id: number) {
+    function navigateTo(id: string) {
         navigate(Routes.EDIT_SOURCE.buildPath({ id }));
     }
-    const sources = useAppSelector((state) => state.sources.sources);
+    const sources = useAppSelector((state) => state.sources);
     return (
         <ListWrapper>
-            {sources.map((source, index) => (
-                <ListItem key={index}>
-                    <ItemText>{source.name}</ItemText>
+            {sources?.map(({ id, name }) => (
+                <ListItem key={id}>
+                    <ItemText>{name}</ItemText>
                     <ItemActions>
-                        <Button onClick={() => navigateTo(index)}>
+                        <Button onClick={() => navigateTo(id)}>
                             <InfoIcon />
                         </Button>
-                        <Button onClick={() => remove(index)}>
+                        <Button onClick={() => remove(id)}>
                             <CloseIcon />
                         </Button>
                     </ItemActions>

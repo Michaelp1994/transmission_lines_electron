@@ -12,14 +12,11 @@ import {
     CardHeaderActions,
     CardContent,
 } from "@/components/BaseCard";
+import {
+    GenerateConductorsInput,
+    generateConductors,
+} from "@/helpers/generateConductors/generateConductors";
 
-interface GenerateConductorsInput {
-    phases: number;
-    circuits: number;
-    neutrals: number;
-    phaseConductorTypeId: number;
-    neutralConductorTypeId: number;
-}
 type ArrayHelper = ArrayHelpers<GenerateConductorsInput[]> & {
     form: FormikProps<TransmissionLineInput>;
     name: string;
@@ -34,33 +31,6 @@ const newConductor = {
     bundleSpacing: 0,
     type: 0,
 };
-
-function generateConductors(values: GenerateConductorsInput) {
-    const newConductors: ConductorInput[] = [];
-    for (let i = 0; i < values.circuits; i++) {
-        for (let j = 0; j < values.phases; j++) {
-            newConductors.push({
-                name: `${String.fromCharCode(65 + j)}${i + 1}`,
-                fromPhase: j + 1,
-                toPhase: j + 1,
-                bundleNumber: 1,
-                bundleSpacing: 0,
-                type: values.phaseConductorTypeId,
-            });
-        }
-    }
-    for (let i = 0; i < values.neutrals; i++) {
-        newConductors.push({
-            name: `N${i + 1}`,
-            fromPhase: 99,
-            toPhase: 99,
-            bundleNumber: 1,
-            bundleSpacing: 0,
-            type: values.neutralConductorTypeId,
-        });
-    }
-    return newConductors;
-}
 
 const ConductorConfigurationTable: React.FC<Props> = () => (
     <FieldArray

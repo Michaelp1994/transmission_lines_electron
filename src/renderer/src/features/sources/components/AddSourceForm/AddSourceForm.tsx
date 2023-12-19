@@ -4,7 +4,7 @@ import { Formik, FormikHelpers } from "formik";
 
 import { useAppDispatch } from "@/store";
 import { addSource } from "@/store/SourcesSlice";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 import BaseSourceForm from "@/features/sources/components/BaseSourceForm";
 
 interface Props {}
@@ -29,7 +29,7 @@ const AddSourceForm: React.FC<Props> = () => {
     ) {
         dispatch(addSource(values));
         actions.resetForm();
-        navigate(Routes.HOME.path);
+        navigate(Routes.PROJECT.path);
     }
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>

@@ -17,7 +17,10 @@ module.exports = defineConfig({
 
     overrides: [
         {
-            files: ["src/main/**/*.ts", "src/database/**/*.ts"],
+            settings: {
+                "import/core-modules": ["electron"],
+            },
+            files: ["src/main/**/*.ts"],
             env: {
                 node: true,
                 es2023: true,

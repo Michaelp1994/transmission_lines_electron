@@ -1,31 +1,32 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "@/store";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
+import { useSolveCircuitQuery } from "@/services/api";
 
 interface Props {}
 
 const GenerateResults: React.FC<Props> = () => {
-    const sources = useAppSelector((state) => state.sources.sources);
+    const sources = useAppSelector((state) => state.sources);
     const transmissionLines = useAppSelector(
-        (state) => state.transmissionLines.transmissionLines
+        (state) => state.transmissionLines
     );
-    const [results, setResults] = useState([]);
-    useEffect(() => {
-        async function generateResults() {
-            const tempResults = await window.api.solveCircuit(
-                sources,
-                transmissionLines
-            );
-            setResults(tempResults);
-        }
-        generateResults();
-    }, [sources, transmissionLines]);
+    const { data, error, isLoading } = useSolveCircuitQuery({
+        sources,
+        transmissionLines,
+    });
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error || !data) {
+        console.log(error);
+        return <div>Theres an error!</div>;
+    }
 
     return (
         <Wrapper>
-            <Link to={Routes.HOME.path}>Go Back</Link>
+            <Link to={Routes.PROJECT.path}>Go Back</Link>
             <Table>
                 <thead>
                     <tr>
@@ -34,7 +35,7 @@ const GenerateResults: React.FC<Props> = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {results.map((row) => (
+                    {data.map((row) => (
                         <tr key={row[0]}>
                             <td>{row[0]}</td>
                             <td>{parseInt(row[1], 10)}</td>

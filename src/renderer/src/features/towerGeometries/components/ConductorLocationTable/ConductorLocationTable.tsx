@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+
 import { ArrayHelpers, FieldArray, FormikProps } from "formik";
 import {
     Card,
@@ -11,29 +12,38 @@ import {
 import BaseButton from "@/components/BaseButton";
 import FormInput from "@/components/FormInput";
 
-interface Props {}
-
-type ArrayHelper = ArrayHelpers<ConductorLocationsInput[]> & {
+interface ConductorLocationArrayHelper
+    extends ArrayHelpers<ConductorLocationsInput[]> {
+    // eslint-disable-next-line react/no-unused-prop-types
     form: FormikProps<TowerGeometryInput>;
+    // eslint-disable-next-line react/no-unused-prop-types
     name: string;
-};
+}
+
+interface Props {}
 
 const newLocation: ConductorLocationsInput = Object.freeze({
     x: 0,
     y: 0,
 });
 
+function addLocation() {
+    return {
+        ...newLocation,
+    };
+}
+
 const ConductorLocationTable: React.FC<Props> = () => (
     <FieldArray
-        name="locations"
-        render={({ form, push, remove }: ArrayHelper) => (
+        name="conductors"
+        render={({ form, push, remove }: ConductorLocationArrayHelper) => (
             <Card>
                 <CardHeader>
                     <CardTitle>Conductor Configuration</CardTitle>
                     <CardHeaderActions>
                         <BaseButton
                             type="button"
-                            onClick={() => push(newLocation)}
+                            onClick={() => push(addLocation())}
                         >
                             Add
                         </BaseButton>
@@ -50,13 +60,13 @@ const ConductorLocationTable: React.FC<Props> = () => (
                             <Row key={index}>
                                 <div>{index + 1}</div>
                                 <FormInput
-                                    name={`locations[${index}].x`}
+                                    name={`conductors[${index}].x`}
                                     type="number"
                                     placeholder="Example"
                                     required
                                 />
                                 <FormInput
-                                    name={`locations[${index}].y`}
+                                    name={`conductors[${index}].y`}
                                     type="number"
                                     placeholder="Example"
                                     required

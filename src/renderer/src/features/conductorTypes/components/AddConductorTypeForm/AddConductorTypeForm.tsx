@@ -2,13 +2,15 @@ import styled from "styled-components";
 import React from "react";
 import { Formik, FormikHelpers } from "formik";
 import { useNavigate } from "react-router-dom";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 import BaseConductorTypeForm from "../BaseConductorTypeForm";
+import { useAddConductorTypeMutation } from "@/services/api";
 
 interface Props {}
 
 const AddConductorTypeForm: React.FC<Props> = () => {
     const navigate = useNavigate();
+    const [addConductorMutation, result] = useAddConductorTypeMutation();
     const initialValues: ConductorTypeInput = {
         name: "",
         surfaceArea: 0,
@@ -23,13 +25,18 @@ const AddConductorTypeForm: React.FC<Props> = () => {
         acResistance75: 0,
         gmr: 0,
     };
-    function handleSubmit(
+    async function handleSubmit(
         values: ConductorTypeInput,
         actions: FormikHelpers<ConductorTypeInput>
     ) {
-        window.api.addConductorType(values);
+        await addConductorMutation(values);
+        if (result.error) {
+            console.log(result.error);
+            return;
+        }
+
         actions.resetForm();
-        navigate(Routes.HOME.path);
+        navigate(Routes.CONDUCTORS.path);
     }
     return (
         <Wrapper>

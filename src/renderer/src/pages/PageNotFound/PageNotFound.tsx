@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 

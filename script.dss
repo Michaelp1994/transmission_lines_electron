@@ -1,0 +1,42 @@
+New Circuit.Toyota bus1=B_Toyota basekv=138 phases=3 x1r1=4 x0r0=3 Isc3=3000 Isc1=4000
+New Reactor.Toyota_RT bus1=B_Toyota.99 bus2=B_Toyota.0 phases=1 R=15 X=0
+New Vsource.Esoura bus1=B_Esoura basekv=138 phases=3 x1r1=4 x0r0=3
+New Reactor.Esoura_RT bus1=B_Esoura.99 bus2=B_Esoura.0 phases=1 R=15 X=0
+New LineSpacing.K1 nConds=8 nPhases=8 x=[-3.15 -3.15 -3.15 3.15 3.15 3.15 -1.225 1.225]
+~ h=[16.08 19.74 23.4 16.08 19.74 23.4 25.23 25.23] units=m
+New WireData.Thrasher rac=32.2 rUnits=km gmrac=18.14 gmrUnits=mm radUnits=mm diam=45.77
+New LineGeometry.Line1_K1 nconds=8 nphases=8 reduce=false spacing=K1
+~ wires=[Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher]
+New Line.Line1_S1 bus1=B_Toyota.1.2.3.1.2.3.99.99 bus2=T1.1.2.3.4.5.6.7.8 length=1 phases=8
+~ geometry=Line1_K1 units=km
+New Reactor.T1_RT bus1=T1.7.8 bus2=T1.0.0 phases=2 R=15 X=0
+New Line.Line1_S2 bus1=T1.1.2.3.4.5.6.7.8 bus2=T2.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T2_RT bus1=T2.7.8 bus2=T2.0.0 phases=2 R=15 X=0
+New Line.Line1_S3 bus1=T2.1.2.3.4.5.6.7.8 bus2=T3.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T3_RT bus1=T3.7.8 bus2=T3.0.0 phases=2 R=15 X=0
+New Line.Line1_S4 bus1=T3.1.2.3.4.5.6.7.8 bus2=T4.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T4_RT bus1=T4.7.8 bus2=T4.0.0 phases=2 R=15 X=0
+New Line.Line1_S5 bus1=T4.1.2.3.4.5.6.7.8 bus2=T5.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T5_RT bus1=T5.7.8 bus2=T5.0.0 phases=2 R=15 X=0
+New Line.Line1_S6 bus1=T5.1.2.3.4.5.6.7.8 bus2=T6.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T6_RT bus1=T6.7.8 bus2=T6.0.0 phases=2 R=15 X=0
+New Line.Line1_S7 bus1=T6.1.2.3.4.5.6.7.8 bus2=T7.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T7_RT bus1=T7.7.8 bus2=T7.0.0 phases=2 R=15 X=0
+New Line.Line1_S8 bus1=T7.1.2.3.4.5.6.7.8 bus2=T8.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T8_RT bus1=T8.7.8 bus2=T8.0.0 phases=2 R=15 X=0
+New Line.Line1_S9 bus1=T8.1.2.3.4.5.6.7.8 bus2=T9.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T9_RT bus1=T9.7.8 bus2=T9.0.0 phases=2 R=15 X=0
+New Line.Line1_S10 bus1=T9.1.2.3.4.5.6.7.8 bus2=T10.1.2.3.4.5.6.7.8 length=1 phases=8 geometry=Line1_K1
+~ units=km
+New Reactor.T10_RT bus1=T10.7.8 bus2=T10.0.0 phases=2 R=15 X=0
+New Line.Line1_S11 bus1=T10.1.2.3.4.5.6.7.8 bus2=B_Esoura.1.2.3.1.2.3.99.99 length=1 phases=8
+~ geometry=Line1_K1 units=km
+New Fault.SHORT_CIRCUIT bus1=B_Toyota.1 bus2=B_Toyota.99 phases=1

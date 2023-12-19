@@ -1,5 +1,5 @@
-import { createBrowserRouter , RouteObject } from "react-router-dom";
-import Routes from "./RoutePathsEnum";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
+import ROUTES from "./routes";
 
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Home from "@/pages/Home";
@@ -16,62 +16,69 @@ import AddConductorType from "@/pages/AddConductorType";
 import AddTowerGeometry from "@/pages/AddTowerGeometry";
 import EditConductorType from "@/pages/EditConductorType";
 import EditTowerGeometry from "@/pages/EditTowerGeometry";
+import ErrorPage from "@/pages/ErrorPage";
+import ProjectPage from "@/pages/ProjectPage";
 
-const routes: RouteObject[] = [
+const routeObjects: RouteObject[] = [
     {
         path: "/",
         element: <DefaultLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
-                path: Routes.HOME.path,
+                path: ROUTES.HOME.path,
                 element: <Home />,
             },
             {
-                path: Routes.WELCOME.path,
+                path: ROUTES.WELCOME.path,
                 element: <WelcomePage />,
             },
             {
-                path: Routes.ADD_TOWER_GEOMETRY.path,
+                path: ROUTES.PROJECT.path,
+                element: <ProjectPage />,
+            },
+            {
+                path: ROUTES.ADD_TOWER_GEOMETRY.path,
                 element: <AddTowerGeometry />,
             },
             {
-                path: Routes.ADD_TRANSMISSION_LINE.path,
+                path: ROUTES.ADD_TRANSMISSION_LINE.path,
                 element: <AddTransmissionLine />,
             },
             {
-                path: Routes.ADD_SOURCE.path,
+                path: ROUTES.ADD_SOURCE.path,
                 element: <AddSource />,
             },
             {
-                path: Routes.ADD_CONDUCTOR.path,
+                path: ROUTES.ADD_CONDUCTOR.path,
                 element: <AddConductorType />,
             },
             {
-                path: Routes.GENERATE_RESULTS.path,
+                path: ROUTES.GENERATE_RESULTS.path,
                 element: <GeneratePage />,
             },
             {
-                path: Routes.EDIT_TRANSMISSION_LINE.path,
+                path: ROUTES.EDIT_TRANSMISSION_LINE.path,
                 element: <EditTransmissionLine />,
             },
             {
-                path: Routes.EDIT_TOWER_GEOMETRY.path,
+                path: ROUTES.EDIT_TOWER_GEOMETRY.path,
                 element: <EditTowerGeometry />,
             },
             {
-                path: Routes.EDIT_SOURCE.path,
+                path: ROUTES.EDIT_SOURCE.path,
                 element: <EditSource />,
             },
             {
-                path: Routes.EDIT_CONDUCTOR_TYPE.path,
+                path: ROUTES.EDIT_CONDUCTOR_TYPE.path,
                 element: <EditConductorType />,
             },
             {
-                path: Routes.TOWER_GEOMETRIES.path,
+                path: ROUTES.TOWER_GEOMETRIES.path,
                 element: <TowerGeometries />,
             },
             {
-                path: Routes.CONDUCTORS.path,
+                path: ROUTES.CONDUCTORS.path,
                 element: <Conductors />,
             },
             {
@@ -83,6 +90,6 @@ const routes: RouteObject[] = [
 ];
 
 const router: ReturnType<typeof createBrowserRouter> =
-    createBrowserRouter(routes);
+    createBrowserRouter(routeObjects);
 
 export default router;

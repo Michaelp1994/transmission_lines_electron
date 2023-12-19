@@ -1,34 +1,33 @@
 import React from "react";
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 
-import { useNavigate, useParams } from "react-router-dom";
 import BaseSourceForm from "../BaseSourceForm";
-import { updateSource } from "@/store/SourcesSlice";
+import { updateSource, selectSourceById } from "@/store/SourcesSlice";
 import { useAppDispatch, useAppSelector } from "@/store";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
-interface Props {}
+interface Props {
+    id: string;
+}
 
-const EditSourceForm: React.FC<Props> = () => {
-    const { id } = useParams();
-    if (!id) return null;
-    const sourceId = parseInt(id);
-    const source = useAppSelector((state) => state.sources.sources[sourceId]);
+const EditSourceForm: React.FC<Props> = ({ id }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
+    const source = useAppSelector((state) => selectSourceById(state, id));
     function handleSubmit(
-        values: SourceInput,
-        actions: FormikHelpers<SourceInput>
+        values: SourceInput
+        // actions: FormikHelpers<SourceInput>
     ) {
         dispatch(
             updateSource({
-                id: sourceId,
+                id,
                 source: values,
             })
         );
-        navigate(Routes.HOME.path);
+        navigate(Routes.PROJECT.path);
     }
+    if (!source) return <div>Error, cannot find the source</div>;
 
     return (
         <Formik initialValues={source} onSubmit={handleSubmit}>

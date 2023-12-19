@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@/store";
 import { addTransmissionLine } from "@/store/TransmissionLinesSlice";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 import BaseTransmissionLineForm from "../BaseTransmissionLineForm";
 
 interface Props {}
@@ -37,7 +37,7 @@ const AddTransmissionLineForm: React.FC<Props> = () => {
 
     function handleSubmit(values: TransmissionLineInput) {
         dispatch(addTransmissionLine(values));
-        navigate(Routes.HOME.path);
+        navigate(Routes.PROJECT.path);
     }
     return (
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>

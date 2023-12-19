@@ -11,6 +11,19 @@ interface SourceInput {
     resistance: number;
 }
 
+interface Source {
+    id: string;
+    name: string;
+    phases: number;
+    voltage: number;
+    Isc1: number;
+    Isc3: number;
+    x0r0: number;
+    x1r1: number;
+    frequency: number;
+    resistance: number;
+}
+
 interface ConductorTypeInput {
     name: string;
     surfaceArea?: number;
@@ -36,10 +49,19 @@ interface TowerGeometryInput {
     conductors: ConductorLocationsInput[];
 }
 
+interface TransmissionLine {
+    id: string;
+    name: string;
+    fromSource: string;
+    toSource: string;
+    conductors: ConductorInput[];
+    towers: TransmissionTowerInput[];
+}
+
 interface TransmissionLineInput {
     name: string;
-    fromSource: number;
-    toSource: number;
+    fromSource: string;
+    toSource: string;
     conductors: ConductorInput[];
     towers: TransmissionTowerInput[];
 }
@@ -81,3 +103,22 @@ interface ConductorType {
     acResistance75?: number;
     gmr?: number;
 }
+
+interface EditConductorTypeInput {
+    id: number;
+    conductorType: ConductorTypeInput;
+}
+
+interface EditTowerGeometryInput {
+    id: number;
+    towerGeometry: TowerGeometryInput;
+}
+
+interface Project {
+    sources: Source[];
+    transmissionLines: TransmissionLine[];
+}
+
+type Prettify<T> = {
+    [K in keyof T]: T[K];
+} & {};

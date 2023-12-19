@@ -1,42 +1,44 @@
 import styled from "styled-components";
 import React from "react";
 import { Formik, FormikHelpers } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
-import Routes from "@/router/RoutePathsEnum";
+import { useNavigate } from "react-router-dom";
+
+import ROUTES from "@/router/routes";
 import BaseConductorTypeForm from "../BaseConductorTypeForm";
+import {
+    useConductorTypeQuery,
+    useEditConductorTypeMutation,
+} from "@/services/api";
 
-interface Props {}
+interface Props {
+    id: number;
+}
 
-const EditConductorTypeForm: React.FC<Props> = () => {
-    const { id } = useParams();
+const EditConductorTypeForm: React.FC<Props> = ({ id }) => {
     const navigate = useNavigate();
-
-    if (!id) return null;
-    const initialValues: ConductorTypeInput = {
-        name: "",
-        surfaceArea: 0,
-        stranding: "",
-        outerDiameter: 0,
-        coreDiameter: 0,
-        layers: 0,
-        currentCapacity: 0,
-        dcResistance25: 0,
-        acResistance25: 0,
-        acResistance50: 0,
-        acResistance75: 0,
-        gmr: 0,
-    };
-    function handleSubmit(
-        values: ConductorTypeInput,
-        actions: FormikHelpers<ConductorTypeInput>
+    const { data, error, isLoading } = useConductorTypeQuery(id);
+    const [editConductor, result] = useEditConductorTypeMutation();
+    async function handleSubmit(
+        values: ConductorType,
+        actions: FormikHelpers<ConductorType>
     ) {
-        window.api.addConductorType(values);
+        await editConductor({ id, conductorType: values });
+        if (result.error) {
+            console.log(result.error);
+            return;
+        }
         actions.resetForm();
-        navigate(Routes.HOME.path);
+        navigate(ROUTES.CONDUCTORS.path);
+    }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error || !data) {
+        return <div>Theres an error!</div>;
     }
     return (
         <Wrapper>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+            <Formik initialValues={data} onSubmit={handleSubmit}>
                 <BaseConductorTypeForm />
             </Formik>
         </Wrapper>

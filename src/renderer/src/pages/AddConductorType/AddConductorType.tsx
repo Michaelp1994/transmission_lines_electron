@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AddConductorTypeForm } from "@/features/conductorTypes";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 
 const AddConductorType: React.FC<Props> = () => (
     <Wrapper>
-        <Link to={Routes.HOME.path}>Go Back</Link>
-        <Heading>Add Source</Heading>
+        <Link to={Routes.CONDUCTORS.path}>Go Back</Link>
+        <Heading>Add Conductor Type</Heading>
         <AddConductorTypeForm />
     </Wrapper>
 );

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import FormSelect from "@/components/FormSelect";
+import { useAllConductorTypesQuery } from "@/services/api";
 
 interface Props {
     label?: string;
@@ -7,21 +7,18 @@ interface Props {
 }
 
 const ConductorTypeSelect: React.FC<Props> = ({ label, name }) => {
-    const [conductorTypes, setConductorTypes] = useState<ConductorType[]>([]);
-
-    useEffect(() => {
-        async function getConductorTypes() {
-            const conductorsTypes = await window.api.getConductorTypes();
-            setConductorTypes(conductorsTypes);
-        }
-        getConductorTypes();
-    }, []);
-
+    const { data, error, isLoading } = useAllConductorTypesQuery();
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error || !data) {
+        return <div>Theres an error!</div>;
+    }
     return (
         <FormSelect label={label} name={name}>
-            {conductorTypes.map((conductor, index) => (
-                <option key={index} value={conductor.id}>
-                    {conductor.name}
+            {data.map((conductorType) => (
+                <option key={conductorType.id} value={conductorType.id}>
+                    {conductorType.name}
                 </option>
             ))}
         </FormSelect>

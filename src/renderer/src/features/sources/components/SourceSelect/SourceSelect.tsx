@@ -8,13 +8,13 @@ interface Props {
 }
 
 const SourceSelect: React.FC<Props> = ({ label, name }) => {
-    const sources = useAppSelector((state) => state.sources.sources);
+    const sources = useAppSelector((state) => state.sources);
 
     return (
         <FormSelect label={label} name={name}>
-            {sources.map((source, index) => (
-                <option key={index} value={index}>
-                    {source.name}
+            {sources.map(({ id, name: sourceName }) => (
+                <option key={id} value={id}>
+                    {sourceName}
                 </option>
             ))}
         </FormSelect>

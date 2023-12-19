@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import "reflect-metadata";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { app, shell, BrowserWindow } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import { setupApi } from "@api/index";
+import setupApi from "@api/index";
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import installExtension, {
     REDUX_DEVTOOLS,

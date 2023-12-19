@@ -3,33 +3,33 @@ import { MdClose, MdInfoOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { removeTransmissionLine } from "@/store/TransmissionLinesSlice";
-import ROUTES from "@/router/RoutePathsEnum";
+import ROUTES from "@/router/routes";
 
 interface Props {}
 
 const TransmissionLinesList: React.FC<Props> = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    function removeLine(index: number) {
-        dispatch(removeTransmissionLine(index));
+    function removeLine(id: string) {
+        dispatch(removeTransmissionLine(id));
     }
     const transmissionLines = useAppSelector(
-        (state) => state.transmissionLines.transmissionLines
+        (state) => state.transmissionLines
     );
 
-    function navigateTo(id: number) {
+    function navigateTo(id: string) {
         navigate(ROUTES.EDIT_TRANSMISSION_LINE.buildPath({ id }));
     }
     return (
         <ListWrapper>
-            {transmissionLines.map((transmissionLine, index) => (
-                <ListItem key={index}>
-                    <ItemText>{transmissionLine.name}</ItemText>
+            {transmissionLines?.map(({ id, name }) => (
+                <ListItem key={id}>
+                    <ItemText>{name}</ItemText>
                     <ItemActions>
-                        <Button onClick={() => navigateTo(index)}>
+                        <Button onClick={() => navigateTo(id)}>
                             <InfoIcon />
                         </Button>
-                        <Button onClick={() => removeLine(index)}>
+                        <Button onClick={() => removeLine(id)}>
                             <CloseIcon />
                         </Button>
                     </ItemActions>

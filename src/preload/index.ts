@@ -1,6 +1,6 @@
 import { contextBridge } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
-import { api } from "@api/api";
+//import { api } from "@api/api";
 
 // Custom APIs for renderer
 
@@ -10,7 +10,7 @@ import { api } from "@api/api";
 if (process.contextIsolated) {
     try {
         contextBridge.exposeInMainWorld("electron", electronAPI);
-        contextBridge.exposeInMainWorld("api", api);
+        //contextBridge.exposeInMainWorld("api", api);
     } catch (error) {
         console.error(error);
     }
@@ -18,5 +18,5 @@ if (process.contextIsolated) {
     // @ts-ignore (define in dts)
     window.electron = electronAPI;
     // @ts-ignore (define in dts)
-    window.api = api;
+    //window.api = api;
 }

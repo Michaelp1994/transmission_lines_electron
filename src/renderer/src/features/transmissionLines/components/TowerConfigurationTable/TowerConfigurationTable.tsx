@@ -34,7 +34,7 @@ const TowerConfigurationTable: React.FC<Props> = () => (
                 const avgDistance = values.distance / values.numTowers;
                 const newTowers = Array(values.numTowers)
                     .fill(0)
-                    .map((array, index) => ({
+                    .map((_, index) => ({
                         name: values.name + (index + 1),
                         resistance: values.resistance,
                         distance: avgDistance,

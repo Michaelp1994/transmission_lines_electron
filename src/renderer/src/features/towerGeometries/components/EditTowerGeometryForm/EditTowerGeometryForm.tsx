@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BaseTowerGeometryForm from "../BaseTowerGeometryForm";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
+import {
+    useEditTowerGeometryMutation,
+    useTowerGeometryQuery,
+} from "@/services/api";
 
-interface Props {}
+interface Props {
+    id: number;
+}
 
-const EditTowerGeometryForm: React.FC<Props> = () => {
-    const { id } = useParams();
+const EditTowerGeometryForm: React.FC<Props> = ({ id }) => {
     const navigate = useNavigate();
-    const towerGeometryId = parseInt(id, 10);
-    const [towerGeometry, setTowerGeometry] =
-        useState<TowerGeometryInput | null>(null);
-    useEffect(() => {
-        async function getGeometry() {
-            const geometry = await window.api.towerGeometry(towerGeometryId);
-            setTowerGeometry(geometry);
-        }
-        getGeometry();
-    }, [towerGeometryId]);
-
-    // const initialValues: TowerGeometryInput = {
-    //     name: "",
-    //     locations: [{ x: 0, y: 0 }],
-    // };
-    function handleSubmit(
-        values: TowerGeometryInput,
-        actions: FormikHelpers<TowerGeometryInput>
+    const { data, error, isLoading } = useTowerGeometryQuery(id);
+    const [editTowerGeometry, result] = useEditTowerGeometryMutation();
+    async function handleSubmit(
+        values: TowerGeometry,
+        actions: FormikHelpers<TowerGeometry>
     ) {
-        window.api.editTowerGeometry(towerGeometryId, values);
+        await editTowerGeometry({ id, towerGeometry: values });
+        if (result.error) {
+            console.log(result.error);
+            return;
+        }
         actions.resetForm();
-        navigate(Routes.HOME.path);
+        navigate(Routes.TOWER_GEOMETRIES.path);
+    }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error || !data) {
+        return <div>Theres an error!</div>;
     }
     return (
-        <Formik initialValues={towerGeometry} onSubmit={handleSubmit}>
+        <Formik initialValues={data} onSubmit={handleSubmit}>
             <BaseTowerGeometryForm />
         </Formik>
     );

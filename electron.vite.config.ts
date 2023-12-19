@@ -4,36 +4,43 @@ import react from "@vitejs/plugin-react";
 // import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  main: {
-    plugins: [swcPlugin(), externalizeDepsPlugin()],
-    resolve: {
-      alias: {
-        "@shared": resolve("src/shared"),
-        "@models": resolve("src/database/models"),
-        "@database": resolve("src/database"),
-        "@api": resolve("src/api"),
-      },
+    main: {
+        build: {
+            sourcemap: true,
+        },
+        plugins: [swcPlugin(), externalizeDepsPlugin()],
+        resolve: {
+            alias: {
+                "@shared": resolve("src/shared"),
+                "@models": resolve("src/main/database/models"),
+                "@database": resolve("src/main/database"),
+                "@api": resolve("src/main/api"),
+            },
+        },
     },
-  },
-  preload: {
-    plugins: [externalizeDepsPlugin()],
-    resolve: {
-      alias: {
-        "@shared": resolve("src/shared"),
-        "@api": resolve("src/api"),
-        "@models": resolve("src/database/models"),
-        "@database": resolve("src/database"),
-      },
+    preload: {
+        build: {
+            sourcemap: true,
+        },
+        plugins: [externalizeDepsPlugin()],
+        resolve: {
+            alias: {
+                "@shared": resolve("src/shared"),
+                "@models": resolve("src/database/models"),
+                "@database": resolve("src/database"),
+            },
+        },
     },
-  },
-  renderer: {
-    resolve: {
-      alias: {
-        "@": resolve("src/renderer/src"),
-        "@shared": resolve("src/shared"),
-        "@api": resolve("src/api"),
-      },
+    renderer: {
+        build: {
+            sourcemap: true,
+        },
+        resolve: {
+            alias: {
+                "@": resolve("src/renderer/src"),
+                "@shared": resolve("src/shared"),
+            },
+        },
+        plugins: [react()],
     },
-    plugins: [react()],
-  },
 });

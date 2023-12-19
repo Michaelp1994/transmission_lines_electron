@@ -6,6 +6,7 @@ import {
     ManyToOne,
 } from "typeorm";
 import type { Relation } from "typeorm";
+// eslint-disable-next-line import/no-cycle
 import TowerGeometry from "./TowerGeometry.model";
 
 @Entity()

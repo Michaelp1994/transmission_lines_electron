@@ -1,28 +1,36 @@
 import styled from "styled-components";
 import NavItem from "@/layouts/DefaultLayout/components/NavItem";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 
 const links = [
     {
+        id: 1,
         name: "Home",
         to: Routes.HOME.path,
     },
     {
+        id: 2,
+        name: "Project",
+        to: Routes.PROJECT.path,
+    },
+    {
+        id: 3,
         name: "Conductor Types",
         to: Routes.CONDUCTORS.path,
     },
     {
+        id: 4,
         name: "Tower Geometries",
         to: Routes.TOWER_GEOMETRIES.path,
     },
-];
+] as const;
 
 const NavBar: React.FC<Props> = () => (
     <StyledWrapper>
-        {links.map((link, index) => (
-            <NavItem name={link.name} to={link.to} key={index} />
+        {links.map((link) => (
+            <NavItem name={link.name} to={link.to} key={link.id} />
         ))}
     </StyledWrapper>
 );

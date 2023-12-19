@@ -1,5 +1,8 @@
-import conductors from "@shared/conductorTypes.json";
-import geometries from "@shared/geometries.json";
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-shadow */
+import TowerGeometry from "@models/TowerGeometry.model";
+import ConductorType from "@models/ConductorType.model";
 import {
     Circuit,
     Fault,
@@ -12,56 +15,86 @@ import {
     WireData,
 } from "opendss-node-interface";
 
-function findGeometry(geometryId: string | number) {
-    const id =
-        typeof geometryId === "string" ? parseInt(geometryId) : geometryId;
-    const geometry = geometries.find((geometry) => geometry.id === id);
-    if (!geometry) throw Error(`Can't find geometry ${id}`);
-    return geometry;
+interface TransmissionLineObjects {
+    line: Line;
+    reactor: Reactor;
 }
 
-function findConductor(conductorId: number | string) {
-    const id =
-        typeof conductorId === "string" ? parseInt(conductorId) : conductorId;
-    const conductor = conductors.find((conductor) => conductor.id === id);
-    if (!conductor) throw Error(`Can't find conductor ${id}`);
-    return conductor;
+interface SourceObjects {
+    source: Vsource;
+    reactor: Reactor;
 }
 
-export default async function buildCircuit(
-    sources: SourceInput[],
-    transmissionLines: TransmissionLineInput[]
-) {
-    function findSource(sourceId: number | string) {
-        const id = typeof sourceId === "string" ? parseInt(sourceId) : sourceId;
-        const source = sources[id];
-        //const source = sources.find((source) => source === id);
+interface CircuitObjects {
+    source: Vsource;
+    reactor: Reactor;
+}
+
+async function findTowerGeometry(towerGeometryId: string | number) {
+    const id =
+        typeof towerGeometryId === "string"
+            ? parseInt(towerGeometryId, 10)
+            : towerGeometryId;
+
+    const towerGeometry = await TowerGeometry.findOne({
+        where: { id },
+    });
+    if (!towerGeometry) throw Error(`Can't find geometry ${id}`);
+    return towerGeometry;
+}
+
+async function findConductorType(conductorTypeId: number | string) {
+    const id =
+        typeof conductorTypeId === "string"
+            ? parseInt(conductorTypeId, 10)
+            : conductorTypeId;
+    const conductorType = await ConductorType.findOne({ where: { id } });
+    if (!conductorType) throw Error(`Can't find conductor ${id}`);
+    return conductorType;
+}
+
+interface Project {
+    sources: Source[];
+    transmissionLines: TransmissionLine[];
+}
+
+export async function buildCircuit(project: Project) {
+    const sourceObjects: SourceObjects[] = [];
+    const transmissionLineObjects: TransmissionLineObjects[] = [];
+    const { sources, transmissionLines } = project;
+    console.log(sources);
+    console.log(transmissionLines);
+    function findSource(id: string) {
+        // const source = sources[id];
+        const source = sources.find((source) => source.id === id);
         if (!source) throw Error(`Can't find source ${id}`);
         return source;
     }
     console.log("Building Circuit");
-    const results: Array<Array<string | number>> = [];
+
     const study = new GeneralStudy();
-    const circuit = new Circuit(sources[0].name, {
-        bus1: `B_${sources[0].name}`,
-        phases: sources[0].phases,
-        basekv: sources[0].voltage,
-        x1r1: sources[0].x1r1,
-        Isc1: sources[0].Isc1,
-        Isc3: sources[0].Isc3,
-        x0r0: sources[0].x0r0,
+    const circuitSource = sources[0];
+    const circuit = new Circuit(circuitSource.name, {
+        bus1: `B_${circuitSource.name}`,
+        phases: circuitSource.phases,
+        basekv: circuitSource.voltage,
+        x1r1: circuitSource.x1r1,
+        Isc1: circuitSource.Isc1,
+        Isc3: circuitSource.Isc3,
+        x0r0: circuitSource.x0r0,
     });
-    study.add(circuit);
-    const reactor = new Reactor(sources[0].name + "_RT", {
-        bus1: `B_${sources[0].name}.99`,
-        bus2: `B_${sources[0].name}.0`,
-        R: sources[0].resistance,
+    const circuitReactor = new Reactor(`${circuitSource.name}_RT`, {
+        bus1: `B_${circuitSource.name}.99`,
+        bus2: `B_${circuitSource.name}.0`,
+        R: circuitSource.resistance,
         X: 0,
         phases: 1,
     });
-    study.add(reactor);
+    study.add(circuit);
+    study.add(circuitReactor);
+    const circuitObjects = { source: circuit, reactor: circuitReactor };
     sources.slice(1).forEach((source) => {
-        const circuit = new Vsource(source.name, {
+        const vSource = new Vsource(source.name, {
             bus1: `B_${source.name}`,
             phases: source.phases,
             basekv: source.voltage,
@@ -70,8 +103,8 @@ export default async function buildCircuit(
             isc3: source.Isc3,
             x0r0: source.x0r0,
         });
-        study.add(circuit);
-        const reactor = new Reactor(source.name + "_RT", {
+        study.add(vSource);
+        const reactor = new Reactor(`${source.name}_RT`, {
             bus1: `B_${source.name}.99`,
             bus2: `B_${source.name}.0`,
             R: source.resistance,
@@ -79,33 +112,34 @@ export default async function buildCircuit(
             phases: 1,
         });
         study.add(reactor);
+
+        sourceObjects.push({ source: vSource, reactor });
     });
 
     const allGeometries = transmissionLines
         .map((line) => line.towers.map((tower) => tower.geometry))
         .flat();
     const uniqueGeometries = [...new Set(allGeometries)];
-    uniqueGeometries.map((geometryId) => {
-        const lineSpacing = findGeometry(geometryId);
 
+    for await (const geometryId of uniqueGeometries) {
+        const lineSpacing = await findTowerGeometry(geometryId);
         const lineSpacingClass = new LineSpacing({
             name: lineSpacing.name,
-            nConds: lineSpacing.locations.length,
-            nPhases: lineSpacing.locations.length,
-            x: lineSpacing.locations.map((conductor) => conductor.x),
-            h: lineSpacing.locations.map((conductor) => conductor.y),
+            nConds: lineSpacing.conductors.length,
+            nPhases: lineSpacing.conductors.length,
+            x: lineSpacing.conductors.map((conductor) => conductor.x),
+            h: lineSpacing.conductors.map((conductor) => conductor.y),
             units: "m",
         });
         study.add(lineSpacingClass);
-        return lineSpacingClass;
-    });
+    }
 
     const allWireDataTypes = transmissionLines
         .map((line) => line.conductors.map((conductor) => conductor.type))
         .flat();
     const uniqueWireDataTypes = [...new Set(allWireDataTypes)];
-    uniqueWireDataTypes.map((typeId) => {
-        const wireData = findConductor(typeId);
+    uniqueWireDataTypes.map(async (typeId) => {
+        const wireData = await findConductorType(typeId);
 
         const wireDataClass = new WireData(wireData.name, {
             diam: wireData.outerDiameter,
@@ -119,15 +153,18 @@ export default async function buildCircuit(
         return wireDataClass;
     });
 
-    transmissionLines.forEach((line) => {
-        const wires = line.conductors.map((conductorInput) => {
-            const conductorClass = findConductor(conductorInput.type);
-            return conductorClass.name;
-        });
+    for await (const line of transmissionLines) {
+        const wireNames: string[] = [];
+        for await (const conductorInput of line.conductors) {
+            const conductorClass = await findConductorType(conductorInput.type);
+            wireNames.push(conductorClass.name);
+        }
+
         const allGeometryIds = line.towers.map((tower) => tower.geometry);
         const uniqueGeometries = [...new Set(allGeometryIds)];
-        uniqueGeometries.map((geometryId) => {
-            const geometry = findGeometry(geometryId);
+
+        for await (const geometryId of uniqueGeometries) {
+            const geometry = await findTowerGeometry(geometryId);
             const geometryClass = new LineGeometry(
                 `${line.name}_${geometry.name}`,
                 {
@@ -135,12 +172,11 @@ export default async function buildCircuit(
                     nphases: line.conductors.length,
                     spacing: geometry.name,
                     reduce: false,
-                    wires,
+                    wires: wireNames,
                 }
             );
             study.add(geometryClass);
-            return geometryClass;
-        });
+        }
 
         // START OF TRANSMISSION LINE
         const numNeutrals = 2;
@@ -164,10 +200,11 @@ export default async function buildCircuit(
             .slice(-numNeutrals)
             .join(".");
         const neutralBus2Phases = new Array(numNeutrals).fill(0).join(".");
+        let index = 0;
 
-        line.towers.forEach((tower, index) => {
-            const name = `${line.name}_${tower.name}`;
-            const geometry = findGeometry(tower.geometry);
+        for await (const tower of line.towers) {
+            const name = `${tower.name}`;
+            const geometry = await findTowerGeometry(tower.geometry);
             const towerNumber = index + 1;
             if (towerNumber === 1) {
                 const lineClass = new Line(`${line.name}_S${towerNumber}`, {
@@ -178,7 +215,7 @@ export default async function buildCircuit(
                     units: "km",
                     geometry: `${line.name}_${geometry.name}`,
                 });
-                const reactorClass = new Reactor(name + "_RT", {
+                const reactorClass = new Reactor(`${name}_RT`, {
                     bus1: `${name}.${neutralBus1Phases}`,
                     bus2: `${name}.${neutralBus2Phases}`,
                     R: tower.resistance,
@@ -187,8 +224,12 @@ export default async function buildCircuit(
                 });
                 study.add(lineClass);
                 study.add(reactorClass);
+                transmissionLineObjects.push({
+                    line: lineClass,
+                    reactor: reactorClass,
+                });
             } else {
-                const prevName = `${line.name}_` + line.towers[index - 1].name;
+                const prevName = `${line.towers[index - 1].name}`;
                 const lineClass = new Line(`${line.name}_S${towerNumber}`, {
                     bus1: `${prevName}.${middlePhases}`,
                     bus2: `${name}.${middlePhases}`,
@@ -198,7 +239,7 @@ export default async function buildCircuit(
                     geometry: `${line.name}_${geometry.name}`,
                 });
 
-                const reactorClass = new Reactor(name + "_RT", {
+                const reactorClass = new Reactor(`${name}_RT`, {
                     bus1: `${name}.${neutralBus1Phases}`,
                     bus2: `${name}.${neutralBus2Phases}`,
                     R: tower.resistance,
@@ -207,6 +248,10 @@ export default async function buildCircuit(
                 });
                 study.add(lineClass);
                 study.add(reactorClass);
+                transmissionLineObjects.push({
+                    line: lineClass,
+                    reactor: reactorClass,
+                });
 
                 if (towerNumber === line.towers.length) {
                     const lineClass = new Line(
@@ -214,7 +259,7 @@ export default async function buildCircuit(
                         {
                             bus1: `${name}.${middlePhases}`,
                             bus2: `B_${toSource.name}.${finalPhases}`,
-                            length: tower.distance, // FIXME: Add Final Distance to Tower
+                            length: tower.distance, // FIXME: This is wrong, assuming the last line to substation is same as previous
                             phases: numConductors,
                             units: "km",
                             geometry: `${line.name}_${geometry.name}`,
@@ -223,11 +268,27 @@ export default async function buildCircuit(
                     study.add(lineClass);
                 }
             }
-        });
-    });
+            index += 1;
+        }
+    }
+    return {
+        study,
+        circuitObjects,
+        sourceObjects,
+        transmissionLineObjects,
+    };
+}
+
+export async function solveFault(
+    study: GeneralStudy,
+    circuitObjects: CircuitObjects,
+    sourceObjects: SourceObjects[],
+    transmissionLineObjects: TransmissionLineObjects[]
+) {
+    const results: Array<Array<string | number>> = [];
     const fault = new Fault("SHORT_CIRCUIT", {
-        bus1: `B_${circuit.name}.1`,
-        bus2: `B_${circuit.name}.99`,
+        bus1: `B_${circuitObjects.source.name}.1`,
+        bus2: `B_${circuitObjects.source.name}.99`,
         phases: 1,
     });
     study.add(fault);
@@ -241,41 +302,26 @@ export default async function buildCircuit(
 
     study.solve();
     // READING RESULTS - CIRCUIT
-    const current1 = study.readCurrent(reactor, 1);
-    results.push([circuit.name, current1]);
-    sources.slice(1).forEach((source) => {
+    const current1 = study.readCurrent(circuitObjects.reactor, 1);
+    results.push([circuitObjects.source.name, current1]);
+    // READING RESULTS - OTHER SOURCES
+    sourceObjects.forEach(({ source, reactor }) => {
         study.changeParameter(fault, "bus1", `B_${source.name}.1`);
         study.changeParameter(fault, "bus2", `B_${source.name}.99`);
         study.solve();
-        const current1 = study.driver.readCurrent(
-            `Reactor.${source.name}_RT`,
-            1
-        );
+        const current1 = study.readCurrent(reactor, 1);
         results.push([source.name, current1]);
     });
 
-    // TRANSMISSION LINES
+    // READING RESULTS - TRANSMISSION LINES
     study.changeParameter(fault, "phases", "2");
-    transmissionLines.forEach((line) => {
-        line.towers.forEach((tower) => {
-            study.changeParameter(
-                fault,
-                "bus1",
-                `${line.name}_${tower.name}.1`
-            );
-            study.changeParameter(
-                fault,
-                "bus2",
-                `${line.name}_${tower.name}.7`
-            );
-            study.solve();
-
-            const current1 = study.driver.readCurrent(
-                `Reactor.${line.name}_${tower.name}_RT`,
-                1
-            );
-            results.push([tower.name, current1]);
-        });
+    transmissionLineObjects.forEach(({ reactor }) => {
+        const busName = reactor.bus1!.split(".")[0];
+        study.changeParameter(fault, "bus1", `${busName}.1`);
+        study.changeParameter(fault, "bus2", `${busName}.7`);
+        study.solve();
+        const current1 = study.readCurrent(reactor, 1);
+        results.push([reactor.name, current1]);
     });
     return results;
 }

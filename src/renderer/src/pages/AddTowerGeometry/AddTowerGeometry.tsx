@@ -2,14 +2,14 @@ import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
 import { AddTowerGeometryForm } from "@/features/towerGeometries";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 
 const AddTowerGeometry: React.FC<Props> = () => (
     <Wrapper>
-        <Link to={Routes.HOME.path}>Go Back</Link>
-        <Heading>Edit Conductor Type</Heading>
+        <Link to={Routes.TOWER_GEOMETRIES.path}>Go Back</Link>
+        <Heading>Add Conductor Type</Heading>
         <AddTowerGeometryForm />
     </Wrapper>
 );

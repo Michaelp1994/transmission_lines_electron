@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import FormSelect from "../../../../components/FormSelect";
+import FormSelect from "@/components/FormSelect";
+import { useAllTowerGeometriesQuery } from "@/services/api";
 
 interface Props {
     label?: string;
@@ -7,18 +7,17 @@ interface Props {
 }
 
 const TowerGeometrySelect: React.FC<Props> = ({ label, name }) => {
-    const [towerGeometries, setTowerGeometries] = useState<TowerGeometry[]>([]);
-    useEffect(() => {
-        async function getGeometries() {
-            const geometries = await window.api.getGeometries();
-            setTowerGeometries(geometries);
-        }
-        getGeometries();
-    }, []);
+    const { data = [], error, isLoading } = useAllTowerGeometriesQuery();
+    if (error) {
+        return <div>error</div>;
+    }
+    if (isLoading) {
+        return <div>loading</div>;
+    }
     return (
         <FormSelect label={label} name={name}>
-            {towerGeometries.map((geometry, index) => (
-                <option key={index} value={geometry.id}>
+            {data.map((geometry) => (
+                <option key={geometry.id} value={geometry.id}>
                     {geometry.name}
                 </option>
             ))}

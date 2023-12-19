@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FieldHookConfig, useField } from "formik";
 import styled from "styled-components";
 
@@ -7,16 +8,12 @@ interface CustomProps {
 
 type Props = CustomProps & FieldHookConfig<string>;
 
-const FormInput: React.FC<Props> = (props) => {
-    const [field, meta] = useField(props);
+const FormInput: React.FC<Props> = ({ label, id, name, ...otherProps }) => {
+    const [field, meta] = useField({ id, name, ...otherProps });
     return (
         <StyledWrapper>
-            {props.label && (
-                <FormLabel htmlFor={props.id || props.name}>
-                    {props.label}
-                </FormLabel>
-            )}
-            <Input {...field} {...props} id={props.name} />
+            {label && <FormLabel htmlFor={id || name}>{label}</FormLabel>}
+            <Input {...field} {...{ id, name, ...otherProps }} id={name} />
             {meta.touched && meta.error ? (
                 <FormFeedback>meta.error</FormFeedback>
             ) : null}

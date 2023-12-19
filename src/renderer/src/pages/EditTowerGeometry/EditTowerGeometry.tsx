@@ -1,18 +1,23 @@
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTypedParams } from "react-router-typesafe-routes/dom";
+
 import { EditTowerGeometryForm } from "@/features/towerGeometries";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 
 interface Props {}
 
-const EditTowerGeometry: React.FC<Props> = () => (
-    <Wrapper>
-        <Link to={Routes.HOME.path}>Go Back</Link>
-        <Heading>Edit Tower Geometry</Heading>
-        <EditTowerGeometryForm />
-    </Wrapper>
-);
+const EditTowerGeometry: React.FC<Props> = () => {
+    const { id } = useTypedParams(Routes.EDIT_TOWER_GEOMETRY);
+    return (
+        <Wrapper>
+            <Link to={Routes.TOWER_GEOMETRIES.path}>Go Back</Link>
+            <Heading>Edit Tower Geometry</Heading>
+            <EditTowerGeometryForm id={id} />
+        </Wrapper>
+    );
+};
 
 const Wrapper = styled.div``;
 

@@ -6,11 +6,9 @@
         "eslint.config.js",
         "prettier.config.js",
         "src/main/**/*",
-        "src/database/*",
-        "src/database/**/*",
-        "src/api/**/*",
         "src/preload/*",
-        "src/types.d.ts"
+        "src/types.d.ts",
+        "src/shared/**/*"
     ],
 
     "compilerOptions": {
@@ -21,13 +19,14 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
+        "noImplicitAny": true,
         // "sourceMap": true,
         "baseUrl": ".",
         "paths": {
             "@shared/*": ["src/shared/*"],
-            "@database/*": ["src/database/*"],
-            "@models/*": ["src/database/models/*"],
-            "@api/*": ["src/api/*"]
+            "@database/*": ["src/main/database/*"],
+            "@models/*": ["src/main/database/models/*"],
+            "@api/*": ["src/main/api/*"]
         }
     }
 }

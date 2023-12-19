@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Routes from "@/router/RoutePathsEnum";
+import Routes from "@/router/routes";
 import { AddSourceForm } from "@/features/sources";
 
 interface Props {}
 
 const AddSource: React.FC<Props> = () => (
     <Wrapper>
-        <Link to={Routes.HOME.path}>Go Back</Link>
+        <Link to={Routes.PROJECT.path}>Go Back</Link>
         <Heading>Add Source</Heading>
         <AddSourceForm />
     </Wrapper>

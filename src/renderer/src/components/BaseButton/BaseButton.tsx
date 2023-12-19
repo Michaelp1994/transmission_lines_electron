@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -45,4 +46,5 @@ export const Button = styled.button`
         background-color: hsl(204 20% 96%);
     }
 `;
+
 export default BaseButton;

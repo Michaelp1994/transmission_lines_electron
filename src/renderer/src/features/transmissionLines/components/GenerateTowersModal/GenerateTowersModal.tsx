@@ -19,10 +19,10 @@ interface Props {
 
 const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
     const initialValues: GenerateConfig = {
-        name: "",
-        numTowers: 1,
+        name: "T",
+        numTowers: 10,
         resistance: 15,
-        distance: 1,
+        distance: 10,
         geometry: 1,
     };
     const [open, setOpen] = useState(false);
@@ -67,7 +67,7 @@ const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
                             <FormInput
                                 label="Total Distance (km)"
                                 name="distance"
-                                type="text"
+                                type="number"
                                 placeholder="Example"
                                 required
                             />

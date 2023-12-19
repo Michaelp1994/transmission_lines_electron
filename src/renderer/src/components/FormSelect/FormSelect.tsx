@@ -1,24 +1,23 @@
-import { useField } from "formik";
+/* eslint-disable react/jsx-props-no-spreading */
+import { FieldHookConfig, useField } from "formik";
 import styled from "styled-components";
 
-interface Props {
+interface MyProps {
     label?: string;
     name: string;
     id?: string;
     children: React.ReactNode;
 }
 
-const FormSelect: React.FC<Props> = (props) => {
-    const [field, meta] = useField(props);
+type Props = MyProps & FieldHookConfig<string>;
+
+const FormSelect: React.FC<Props> = ({ label, id, name, ...otherProps }) => {
+    const [field, meta] = useField({ id, name, ...otherProps });
     return (
         <StyledWrapper>
-            {props.label && (
-                <FormLabel htmlFor={props.id || props.name}>
-                    {props.label}
-                </FormLabel>
-            )}
+            {label && <FormLabel htmlFor={id || name}>{label}</FormLabel>}
 
-            <Select {...field} {...props} />
+            <Select {...field} {...{ id, name, ...otherProps }} />
             {meta.touched && meta.error ? (
                 <FormFeedback>{meta.error}</FormFeedback>
             ) : null}

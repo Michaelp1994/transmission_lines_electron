@@ -11,7 +11,7 @@ interface Props<T> {
     columns: ColumnDef<T, any>[];
 }
 
-function BaseTable<T>({ data, columns }: Props<T>): JSX.Element {
+const BaseTable = <T,>({ data, columns }: Props<T>) => {
     const table = useReactTable({
         data,
         columns,
@@ -69,7 +69,7 @@ function BaseTable<T>({ data, columns }: Props<T>): JSX.Element {
             </Table>
         </Wrapper>
     );
-}
+};
 
 const Wrapper = styled.div``;
 const Table = styled.table`

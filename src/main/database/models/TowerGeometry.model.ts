@@ -6,6 +6,7 @@ import {
     OneToMany,
 } from "typeorm";
 import type { Relation } from "typeorm";
+// eslint-disable-next-line import/no-cycle
 import ConductorLocation from "./ConductorLocation.model";
 
 @Entity()
@@ -21,6 +22,7 @@ export default class TowerGeometry extends BaseEntity {
         (conductorLocation) => conductorLocation.geometry,
         {
             cascade: true,
+            eager: true,
         }
     )
     conductors: Relation<ConductorLocation[]>;
