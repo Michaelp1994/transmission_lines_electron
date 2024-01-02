@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import React from "react";
+import { Button } from "component-library";
 import { Form } from "formik";
 import FormInput from "@/components/FormInput";
-import BaseButton from "@/components/BaseButton";
+
 import ConductorLocationTable from "@/features/towerGeometries/components/ConductorLocationTable";
 import TowerGeometryDiagram from "@/features/towerGeometries/components/TowerGeometryDiagram";
 
@@ -13,7 +13,7 @@ const BaseTowerGeometryForm: React.FC<Props> = () => (
         <LeftSide>
             <FormInput label="Name" name="name" required />
             <ConductorLocationTable />
-            <BaseButton type="submit">Submit</BaseButton>
+            <Button type="submit">Submit</Button>
         </LeftSide>
         <RightSide>
             <TowerGeometryDiagram />
@@ -27,8 +27,9 @@ const LeftSide = styled.div`
     gap: 0.75rem;
 `;
 const RightSide = styled.div`
+    display: flex;
     flex: 1;
-    border: 1px black solid;
+    justify-content: center;
 `;
 const StyledForm = styled(Form)`
     display: flex;

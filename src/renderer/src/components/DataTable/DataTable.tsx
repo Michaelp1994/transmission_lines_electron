@@ -11,7 +11,7 @@ interface Props<T> {
     columns: ColumnDef<T, any>[];
 }
 
-const BaseTable = <T,>({ data, columns }: Props<T>) => {
+const DataTable = <T,>({ data, columns }: Props<T>) => {
     const table = useReactTable({
         data,
         columns,
@@ -80,6 +80,9 @@ const TableHead = styled.thead`
     & tr th {
         padding: 16px;
     }
+    & tr th:last-child {
+        text-align: right;
+    }
 `;
 const TableBody = styled.tbody`
     & tr:nth-child(even) {
@@ -88,7 +91,10 @@ const TableBody = styled.tbody`
     & tr td {
         padding: 8px;
     }
+    & tr td:last-child {
+        text-align: right;
+    }
 `;
 
 const TableFooter = styled.tfoot``;
-export default BaseTable;
+export default DataTable;

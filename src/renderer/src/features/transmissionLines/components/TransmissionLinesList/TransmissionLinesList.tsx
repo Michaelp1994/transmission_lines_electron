@@ -1,15 +1,28 @@
 import styled from "styled-components";
-import { MdClose, MdInfoOutline } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {
+    Button,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+    buttonVariants,
+} from "component-library";
+import { Trash2, Info } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { removeTransmissionLine } from "@/store/TransmissionLinesSlice";
+
 import ROUTES from "@/router/routes";
 
 interface Props {}
 
 const TransmissionLinesList: React.FC<Props> = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
     function removeLine(id: string) {
         dispatch(removeTransmissionLine(id));
     }
@@ -17,21 +30,22 @@ const TransmissionLinesList: React.FC<Props> = () => {
         (state) => state.transmissionLines
     );
 
-    function navigateTo(id: string) {
-        navigate(ROUTES.EDIT_TRANSMISSION_LINE.buildPath({ id }));
-    }
     return (
         <ListWrapper>
             {transmissionLines?.map(({ id, name }) => (
                 <ListItem key={id}>
                     <ItemText>{name}</ItemText>
                     <ItemActions>
-                        <Button onClick={() => navigateTo(id)}>
-                            <InfoIcon />
+                        <Button variant="ghost" asChild>
+                            <Link
+                                to={ROUTES.EDIT_TRANSMISSION_LINE.buildPath({
+                                    id,
+                                })}
+                            >
+                                <InfoIcon />
+                            </Link>
                         </Button>
-                        <Button onClick={() => removeLine(id)}>
-                            <CloseIcon />
-                        </Button>
+                        <ConfirmDialog onConfirm={() => removeLine(id)} />
                     </ItemActions>
                 </ListItem>
             ))}
@@ -62,30 +76,47 @@ const ItemActions = styled.div`
     display: flex;
     gap: 4px;
 `;
-const Button = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 48px;
-    width: 48px;
-    background-color: transparent;
-    padding: 0px;
-    cursor: pointer;
-    border: none;
-    border-radius: 50%;
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-`;
 
-const CloseIcon = styled(MdClose)`
+const CloseIcon = styled(Trash2)`
     height: 24px;
     width: 24px;
 `;
 
-const InfoIcon = styled(MdInfoOutline)`
+const InfoIcon = styled(Info)`
     height: 24px;
     width: 24px;
 `;
+
+interface ConfirmDialogProps {
+    onConfirm(): void;
+}
+
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => (
+    <AlertDialog>
+        <AlertDialogTrigger asChild>
+            <Button variant="destructive" size="icon">
+                <CloseIcon />
+            </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    the transmission line.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                    className={buttonVariants({ variant: "destructive" })}
+                    onClick={() => onConfirm()}
+                >
+                    Continue
+                </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
+);
 
 export default TransmissionLinesList;

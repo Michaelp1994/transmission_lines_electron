@@ -26,6 +26,7 @@ const routeObjects: RouteObject[] = [
         errorElement: <ErrorPage />,
         children: [
             {
+                index: true,
                 path: ROUTES.HOME.path,
                 element: <Home />,
             },

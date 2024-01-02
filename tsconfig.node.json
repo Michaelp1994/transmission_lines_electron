@@ -20,6 +20,7 @@
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
         "noImplicitAny": true,
+        "esModuleInterop": true,
         // "sourceMap": true,
         "baseUrl": ".",
         "paths": {

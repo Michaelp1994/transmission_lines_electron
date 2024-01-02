@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import React from "react";
 import { Form } from "formik";
 
-import BaseButton from "@/components/BaseButton";
+import { Button } from "component-library";
 import FormInput from "@/components/FormInput";
 
 interface Props {}
@@ -20,7 +19,7 @@ const BaseSourceForm: React.FC<Props> = () => (
         <FormInput
             label="Phases"
             name="phases"
-            type="text"
+            type="number"
             placeholder="3"
             required
         />
@@ -34,13 +33,13 @@ const BaseSourceForm: React.FC<Props> = () => (
         <FormInput label="X0/R0" name="x0r0" type="number" placeholder="3" />
         <FormInput
             label="Short Circuit Current 3 Phase"
-            name="isc3"
+            name="Isc3"
             type="number"
             placeholder="4000"
         />
         <FormInput
             label="Short Circuit Current 1 Phase"
-            name="isc1"
+            name="Isc1"
             type="number"
             placeholder="3000"
         />
@@ -51,8 +50,8 @@ const BaseSourceForm: React.FC<Props> = () => (
             placeholder="15"
         />
         <ButtonsWrapper>
-            <BaseButton type="reset">Cancel</BaseButton>
-            <BaseButton type="submit">Save Changes</BaseButton>
+            <Button type="reset">Cancel</Button>
+            <Button type="submit">Save Changes</Button>
         </ButtonsWrapper>
     </StyledForm>
 );

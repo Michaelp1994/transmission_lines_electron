@@ -1,11 +1,10 @@
-import "reflect-metadata";
 import ConductorType from "@models/ConductorType.model";
 import TowerGeometry from "@models/TowerGeometry.model";
 import ConductorTypes from "@shared/conductorTypes.json";
 import TowerGeometries from "@shared/geometries.json";
 import dataSource from "@database/dataSource";
 
-async function seedDb() {
+async function seedDatabase() {
     if (!dataSource.isInitialized) await dataSource.initialize();
 
     // eslint-disable-next-line no-restricted-syntax
@@ -23,4 +22,4 @@ async function seedDb() {
     return true;
 }
 
-export default seedDb;
+export default seedDatabase;

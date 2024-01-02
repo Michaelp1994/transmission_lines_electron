@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import { Button } from "component-library";
+import { Link } from "react-router-dom";
+
 import { ConductorTypeTable } from "@/features/conductorTypes";
-import BaseButton from "@/components/BaseButton";
 import Routes from "@/router/routes";
 
 interface Props {}
 
 const Conductors: React.FC<Props> = () => (
     <Wrapper>
-        <BaseButton to={Routes.ADD_CONDUCTOR.path}>Add Conductor</BaseButton>
+        <Button asChild>
+            <Link to={Routes.ADD_CONDUCTOR.path}>Add Conductor</Link>
+        </Button>
         <ConductorTypeTable />
     </Wrapper>
 );

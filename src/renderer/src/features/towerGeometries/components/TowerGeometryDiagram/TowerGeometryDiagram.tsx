@@ -1,13 +1,14 @@
-import React from "react";
 import { Stage, Layer, Circle, Line } from "react-konva";
 import { useFormikContext } from "formik";
+import { styled } from "styled-components";
 
 interface Props {}
 const TowerGeometryDiagram: React.FC<Props> = () => {
     const { values } = useFormikContext<TowerGeometryInput>();
+    const scale = 5;
     return (
-        <Stage width={window.innerWidth / 3} height={500}>
-            <Layer offsetX={-200} offsetY={-200}>
+        <StyledStage width={500} height={500}>
+            <Layer offsetX={-250} offsetY={-250}>
                 <Line
                     points={[-200, 0, 200, 0]}
                     stroke="black"
@@ -26,16 +27,19 @@ const TowerGeometryDiagram: React.FC<Props> = () => {
                     values.conductors.map((location, index) => (
                         <Circle
                             key={index}
-                            x={location.x}
-                            y={-location.y}
+                            x={location.x * scale}
+                            y={-location.y * scale}
                             width={10}
                             height={10}
                             fill="black"
                         />
                     ))}
             </Layer>
-        </Stage>
+        </StyledStage>
     );
 };
 
+const StyledStage = styled(Stage)`
+    border: 1px solid black;
+`;
 export default TowerGeometryDiagram;

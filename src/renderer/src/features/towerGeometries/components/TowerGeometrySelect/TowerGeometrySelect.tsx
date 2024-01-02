@@ -16,6 +16,7 @@ const TowerGeometrySelect: React.FC<Props> = ({ label, name }) => {
     }
     return (
         <FormSelect label={label} name={name}>
+            <option value="">Select a source</option>
             {data.map((geometry) => (
                 <option key={geometry.id} value={geometry.id}>
                     {geometry.name}

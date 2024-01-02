@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Button } from "component-library";
+import { Info } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
-import BaseTable from "@/components/BaseTable";
-import BaseButton from "@/components/BaseButton";
+import DataTable from "@/components/DataTable";
 import ROUTES from "@/router/routes";
 import { useAllTowerGeometriesQuery } from "@/services/api";
 
@@ -19,7 +20,11 @@ const EditButton: React.FC<EditButtonProps> = ({ id }) => {
     function handleClick() {
         navigate(ROUTES.EDIT_TOWER_GEOMETRY.buildPath({ id }));
     }
-    return <BaseButton onClick={handleClick}>EDIT</BaseButton>;
+    return (
+        <Button variant="ghost" size="icon" onClick={handleClick}>
+            <Info />
+        </Button>
+    );
 };
 
 const columns = [
@@ -43,7 +48,7 @@ const GeometriesTable: React.FC<Props> = () => {
     }
     return (
         <Wrapper>
-            <BaseTable data={data} columns={columns} />
+            <DataTable data={data} columns={columns} />
         </Wrapper>
     );
 };

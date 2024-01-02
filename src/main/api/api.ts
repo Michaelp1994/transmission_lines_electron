@@ -116,6 +116,7 @@ export default function setupApi() {
         }
         return null;
     });
+
     ipcMain.handle(
         ApiEvent.SaveProject,
         async (_, sources: Source[], transmissionLines: TransmissionLine[]) => {

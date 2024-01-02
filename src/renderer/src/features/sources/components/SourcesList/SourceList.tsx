@@ -1,6 +1,20 @@
 import styled from "styled-components";
-import { MdClose, MdInfoOutline } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Info, Trash2 } from "lucide-react";
+
+import {
+    Button,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+    buttonVariants,
+} from "component-library";
 import { removeSource } from "@/store/SourcesSlice";
 import { useAppDispatch, useAppSelector } from "@/store";
 import Routes from "@/router/routes";
@@ -9,15 +23,11 @@ interface Props {}
 
 const SourcesList: React.FC<Props> = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     function remove(id: string) {
         dispatch(removeSource(id));
     }
 
-    function navigateTo(id: string) {
-        navigate(Routes.EDIT_SOURCE.buildPath({ id }));
-    }
     const sources = useAppSelector((state) => state.sources);
     return (
         <ListWrapper>
@@ -25,12 +35,12 @@ const SourcesList: React.FC<Props> = () => {
                 <ListItem key={id}>
                     <ItemText>{name}</ItemText>
                     <ItemActions>
-                        <Button onClick={() => navigateTo(id)}>
-                            <InfoIcon />
+                        <Button asChild variant="ghost">
+                            <Link to={Routes.EDIT_SOURCE.buildPath({ id })}>
+                                <InfoIcon />
+                            </Link>
                         </Button>
-                        <Button onClick={() => remove(id)}>
-                            <CloseIcon />
-                        </Button>
+                        <ConfirmDialog onConfirm={() => remove(id)} />
                     </ItemActions>
                 </ListItem>
             ))}
@@ -61,30 +71,47 @@ const ItemActions = styled.div`
     display: flex;
     gap: 4px;
 `;
-const Button = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 48px;
-    width: 48px;
-    background-color: transparent;
-    padding: 0px;
-    cursor: pointer;
-    border: none;
-    border-radius: 50%;
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-`;
 
-const CloseIcon = styled(MdClose)`
+const CloseIcon = styled(Trash2)`
     height: 24px;
     width: 24px;
 `;
 
-const InfoIcon = styled(MdInfoOutline)`
+const InfoIcon = styled(Info)`
     height: 24px;
     width: 24px;
 `;
+
+interface ConfirmDialogProps {
+    onConfirm(): void;
+}
+
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => (
+    <AlertDialog>
+        <AlertDialogTrigger asChild>
+            <Button variant="destructive" size="icon">
+                <CloseIcon />
+            </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    the source.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                    className={buttonVariants({ variant: "destructive" })}
+                    onClick={() => onConfirm()}
+                >
+                    Continue
+                </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+    </AlertDialog>
+);
 
 export default SourcesList;

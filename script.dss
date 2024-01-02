@@ -4,7 +4,7 @@ New Vsource.Esoura bus1=B_Esoura basekv=138 phases=3 x1r1=4 x0r0=3
 New Reactor.Esoura_RT bus1=B_Esoura.99 bus2=B_Esoura.0 phases=1 R=15 X=0
 New LineSpacing.K1 nConds=8 nPhases=8 x=[-3.15 -3.15 -3.15 3.15 3.15 3.15 -1.225 1.225]
 ~ h=[16.08 19.74 23.4 16.08 19.74 23.4 25.23 25.23] units=m
-New WireData.Thrasher rac=32.2 rUnits=km gmrac=18.14 gmrUnits=mm radUnits=mm diam=45.77
+New WireData.Thrasher rac=0.0322 rUnits=km gmrac=18.14 gmrUnits=mm radUnits=mm diam=45.77
 New LineGeometry.Line1_K1 nconds=8 nphases=8 reduce=false spacing=K1
 ~ wires=[Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher Thrasher]
 New Line.Line1_S1 bus1=B_Toyota.1.2.3.1.2.3.99.99 bus2=T1.1.2.3.4.5.6.7.8 length=1 phases=8

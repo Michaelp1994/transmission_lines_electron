@@ -16,6 +16,7 @@ const ConductorTypeSelect: React.FC<Props> = ({ label, name }) => {
     }
     return (
         <FormSelect label={label} name={name}>
+            <option value="">Select a source</option>
             {data.map((conductorType) => (
                 <option key={conductorType.id} value={conductorType.id}>
                     {conductorType.name}

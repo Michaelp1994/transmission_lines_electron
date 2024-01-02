@@ -3,7 +3,14 @@ const { defineConfig } = require("eslint-define-config");
 
 module.exports = defineConfig({
     root: true,
-    ignorePatterns: ["node_modules", "dist", "build", "coverage", "out"],
+    ignorePatterns: [
+        "node_modules",
+        "dist",
+        "build",
+        "coverage",
+        "out",
+        "src/main/database/migrations",
+    ],
     //extends: ["@electron-toolkit/eslint-config-ts/recommended"],
     env: {
         es2023: true,
@@ -46,9 +53,11 @@ module.exports = defineConfig({
                 "prettier",
             ],
             rules: {
+                "no-console": 0,
                 "react/prop-types": 0,
                 "react/no-array-index-key": 0,
                 "react/jsx-no-bind": 0,
+                "react/require-default-props": 0,
                 // LEGIT BELOW
                 "@typescript-eslint/no-use-before-define": 0,
                 "react/function-component-definition": [

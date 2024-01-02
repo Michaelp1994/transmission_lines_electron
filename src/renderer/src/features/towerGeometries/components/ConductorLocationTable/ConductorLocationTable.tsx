@@ -1,16 +1,19 @@
-import styled from "styled-components";
-import React from "react";
+import { Plus, X } from "lucide-react";
 
 import { ArrayHelpers, FieldArray, FormikProps } from "formik";
+
 import {
+    Button,
     Card,
-    CardHeader,
-    CardTitle,
-    CardHeaderActions,
     CardContent,
-} from "@/components/BaseCard";
-import BaseButton from "@/components/BaseButton";
+    CardHeader,
+    CardHeaderActions,
+    CardHeaderText,
+    CardTitle,
+} from "component-library";
+
 import FormInput from "@/components/FormInput";
+import { Table, TableBody, TableHead } from "@/components/SimpleTable";
 
 interface ConductorLocationArrayHelper
     extends ArrayHelpers<ConductorLocationsInput[]> {
@@ -39,43 +42,69 @@ const ConductorLocationTable: React.FC<Props> = () => (
         render={({ form, push, remove }: ConductorLocationArrayHelper) => (
             <Card>
                 <CardHeader>
-                    <CardTitle>Conductor Configuration</CardTitle>
+                    <CardHeaderText>
+                        <CardTitle>Conductor Configuration</CardTitle>
+                    </CardHeaderText>
                     <CardHeaderActions>
-                        <BaseButton
+                        <Button
+                            size="icon"
+                            variant="secondary"
                             type="button"
                             onClick={() => push(addLocation())}
                         >
-                            Add
-                        </BaseButton>
+                            <Plus />
+                        </Button>
                     </CardHeaderActions>
                 </CardHeader>
                 <CardContent>
                     <Table>
-                        <Row>
-                            <RowHeader>Number</RowHeader>
-                            <RowHeader>X</RowHeader>
-                            <RowHeader>Y</RowHeader>
-                        </Row>
-                        {form.values.conductors.map((_, index) => (
-                            <Row key={index}>
-                                <div>{index + 1}</div>
-                                <FormInput
-                                    name={`conductors[${index}].x`}
-                                    type="number"
-                                    placeholder="Example"
-                                    required
-                                />
-                                <FormInput
-                                    name={`conductors[${index}].y`}
-                                    type="number"
-                                    placeholder="Example"
-                                    required
-                                />
-                                <BaseButton onClick={() => remove(index)}>
-                                    Remove
-                                </BaseButton>
-                            </Row>
-                        ))}
+                        <TableHead>
+                            <tr>
+                                <th id="number">Number</th>
+                                <th id="xcoord">X (m)</th>
+                                <th id="ycoord">Y (m)</th>
+                                <th id="actions">Actions</th>
+                            </tr>
+                        </TableHead>
+                        <TableBody>
+                            {form.values.conductors.map((_, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        <FormInput
+                                            aria-labelledby="xcoord"
+                                            name={`conductors[${index}].x`}
+                                            type="number"
+                                            placeholder="Example"
+                                            required
+                                        />
+                                    </td>
+                                    <td>
+                                        <FormInput
+                                            aria-labelledby="ycoord"
+                                            name={`conductors[${index}].y`}
+                                            type="number"
+                                            placeholder="Example"
+                                            required
+                                        />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            aria-labelledby="actions"
+                                            variant="destructive"
+                                            size="icon"
+                                            onClick={() => remove(index)}
+                                            disabled={
+                                                form.values.conductors.length <=
+                                                1
+                                            }
+                                        >
+                                            <X />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </TableBody>
                     </Table>
                 </CardContent>
             </Card>
@@ -83,24 +112,4 @@ const ConductorLocationTable: React.FC<Props> = () => (
     />
 );
 
-const Table = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-`;
-
-const RowHeader = styled.div`
-    display: block;
-    flex: 1;
-`;
-
-const Row = styled.div`
-    display: flex;
-    width: 100%;
-    gap: 0.75rem;
-
-    & > * {
-        flex: 1;
-    }
-`;
 export default ConductorLocationTable;

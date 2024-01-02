@@ -62,8 +62,6 @@ export async function buildCircuit(project: Project) {
     const sourceObjects: SourceObjects[] = [];
     const transmissionLineObjects: TransmissionLineObjects[] = [];
     const { sources, transmissionLines } = project;
-    console.log(sources);
-    console.log(transmissionLines);
     function findSource(id: string) {
         // const source = sources[id];
         const source = sources.find((source) => source.id === id);

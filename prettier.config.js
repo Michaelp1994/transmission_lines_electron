@@ -4,6 +4,6 @@ const config = {
     tabWidth: 4,
     semi: true,
     singleQuote: false,
-}
-
-module.exports = config
+};
+module.exports = config;
+// export default config;

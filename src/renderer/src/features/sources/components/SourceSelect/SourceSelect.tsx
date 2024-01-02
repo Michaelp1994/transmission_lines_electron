@@ -5,13 +5,15 @@ interface Props {
     label: string;
     name: string;
     id: string;
+    required?: boolean;
 }
 
-const SourceSelect: React.FC<Props> = ({ label, name }) => {
+const SourceSelect: React.FC<Props> = ({ label, name, required }) => {
     const sources = useAppSelector((state) => state.sources);
 
     return (
-        <FormSelect label={label} name={name}>
+        <FormSelect label={label} name={name} required={required}>
+            <option value="">Select a source</option>
             {sources.map(({ id, name: sourceName }) => (
                 <option key={id} value={id}>
                     {sourceName}

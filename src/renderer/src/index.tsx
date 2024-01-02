@@ -2,9 +2,11 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import React from "react";
+import "component-library/dist/style.css";
 import { store } from "./store/store";
-import GlobalStyles from "./components/GlobalStyles";
+// import GlobalStyles from "./styles/GlobalStyles";
 import router from "./router";
+import ApiProvider from "./providers/ApiProvider";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -13,8 +15,10 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <GlobalStyles />
-            <RouterProvider router={router} />
+            <ApiProvider>
+                {/* <GlobalStyles /> */}
+                <RouterProvider router={router} />
+            </ApiProvider>
         </Provider>
     </React.StrictMode>
 );

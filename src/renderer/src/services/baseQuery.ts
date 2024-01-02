@@ -11,10 +11,10 @@ const baseQuery: BaseQueryFn<
 > = async (args, _api, _extraOptions) => {
     // console.log("args", args);
     if (typeof args === "string") {
-        const data = window.electron.ipcRenderer.invoke(args);
+        const data = window.api.invoke(args);
         return { data };
     }
-    const data = await window.electron.ipcRenderer.invoke(args.url, args.body);
+    const data = await window.api.invoke(args.url, args.body);
     return { data };
 };
 

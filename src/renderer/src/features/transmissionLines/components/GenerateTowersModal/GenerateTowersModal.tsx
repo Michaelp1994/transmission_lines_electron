@@ -1,8 +1,16 @@
-import styled from "styled-components";
-import React, { useState } from "react";
+import {
+    Button,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "component-library";
+
 import { Formik, FormikProps } from "formik";
-import BaseModal from "@/components/BaseModal";
-import BaseButton from "@/components/BaseButton";
 import FormInput from "@/components/FormInput";
 import { TowerGeometrySelect } from "@/features/towerGeometries";
 
@@ -25,20 +33,25 @@ const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
         distance: 10,
         geometry: 1,
     };
-    const [open, setOpen] = useState(false);
     function handleSubmit(values: GenerateConfig) {
         onSubmit(values);
-
-        setOpen(false);
     }
     return (
-        <Wrapper>
-            <BaseButton onClick={() => setOpen(true)}>Generate</BaseButton>
-            <BaseModal open={open} onClose={() => setOpen(false)}>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button>Generate</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Generate Towers</DialogTitle>
+                    <DialogDescription>
+                        Generate a configuration for the towers of the
+                        transmission line.
+                    </DialogDescription>
+                </DialogHeader>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     {(props: FormikProps<any>) => (
-                        <ModalContent>
-                            <div>Generate Towers</div>
+                        <>
                             <FormInput
                                 label="Name Prefix"
                                 name="name"
@@ -71,24 +84,22 @@ const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
                                 placeholder="Example"
                                 required
                             />
-                            <BaseButton
-                                type="submit"
-                                onClick={() => props.handleSubmit()}
-                            >
-                                Generate
-                            </BaseButton>
-                        </ModalContent>
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button
+                                        type="submit"
+                                        onClick={() => props.handleSubmit()}
+                                    >
+                                        Generate
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </>
                     )}
                 </Formik>
-            </BaseModal>
-        </Wrapper>
+            </DialogContent>
+        </Dialog>
     );
 };
 
-const Wrapper = styled.div``;
-const ModalContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-`;
 export default GenerateTowersModal;

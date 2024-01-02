@@ -10,6 +10,7 @@ enum ApiEvent {
     SolveCircuit = "solve-circuit",
     OpenProject = "open-project",
     SaveProject = "save-project",
+    InvalidateCache = "invalidate-cache",
 }
 
 export default ApiEvent;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React from "react";
 import { Link, useRouteError } from "react-router-dom";
 import ROUTES from "@/router/routes";
 

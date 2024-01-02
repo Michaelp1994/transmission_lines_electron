@@ -1,17 +1,20 @@
 import styled from "styled-components";
 import { ArrayHelpers, FieldArray, FormikProps } from "formik";
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardHeaderText,
+    CardHeaderActions,
+    CardTitle,
+    CardContent,
+    CardDescription,
+} from "component-library";
+import { Plus, X } from "lucide-react";
 
-import BaseButton from "@/components/BaseButton";
 import { ConductorTypeSelect } from "@/features/conductorTypes";
 import FormInput from "@/components/FormInput";
 import GenerateConductorsModal from "@/features/transmissionLines/components/GenerateConductorsModal";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardHeaderActions,
-    CardContent,
-} from "@/components/BaseCard";
 import {
     GenerateConductorsInput,
     generateConductors,
@@ -38,7 +41,12 @@ const ConductorConfigurationTable: React.FC<Props> = () => (
         render={(arrayHelpers: ArrayHelper) => (
             <Card>
                 <CardHeader>
-                    <CardTitle>Conductor Configuration</CardTitle>
+                    <CardHeaderText>
+                        <CardTitle>Conductor Configuration</CardTitle>
+                        <CardDescription>
+                            Configure the conductors for the Transmission line.
+                        </CardDescription>
+                    </CardHeaderText>
                     <CardHeaderActions>
                         <GenerateConductorsModal
                             onSubmit={(values) =>
@@ -48,8 +56,10 @@ const ConductorConfigurationTable: React.FC<Props> = () => (
                                 )
                             }
                         />
-                        <BaseButton
+                        <Button
                             type="button"
+                            variant="destructive"
+                            size="icon"
                             onClick={() =>
                                 arrayHelpers.form.setFieldValue("conductors", [
                                     newConductor,
@@ -59,16 +69,18 @@ const ConductorConfigurationTable: React.FC<Props> = () => (
                                 arrayHelpers.form.values.conductors.length === 1
                             }
                         >
-                            Remove All
-                        </BaseButton>
-                        <BaseButton
+                            <X />
+                        </Button>
+                        <Button
                             type="button"
+                            size="icon"
                             onClick={() => arrayHelpers.push(newConductor)}
                         >
-                            Add
-                        </BaseButton>
+                            <Plus />
+                        </Button>
                     </CardHeaderActions>
                 </CardHeader>
+
                 <CardContent>
                     <Table>
                         <Row>
@@ -115,11 +127,17 @@ const ConductorConfigurationTable: React.FC<Props> = () => (
                                 <ConductorTypeSelect
                                     name={`conductors.${index}.type`}
                                 />
-                                <BaseButton
+                                <Button
+                                    variant="destructive"
+                                    size="icon"
+                                    disabled={
+                                        arrayHelpers.form.values.conductors
+                                            .length === 1
+                                    }
                                     onClick={() => arrayHelpers.remove(index)}
                                 >
-                                    Remove
-                                </BaseButton>
+                                    <X />
+                                </Button>
                             </Row>
                         ))}
                     </Table>
@@ -128,7 +146,6 @@ const ConductorConfigurationTable: React.FC<Props> = () => (
         )}
     />
 );
-
 const Table = styled.div`
     display: flex;
     flex-direction: column;

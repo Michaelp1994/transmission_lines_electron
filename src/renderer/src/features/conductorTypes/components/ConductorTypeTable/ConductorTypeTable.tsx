@@ -1,9 +1,8 @@
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import { Info } from "lucide-react";
+import { Button } from "component-library";
 import { createColumnHelper } from "@tanstack/react-table";
-import BaseTable from "@/components/BaseTable";
-import BaseButton from "@/components/BaseButton";
+import DataTable from "@/components/DataTable";
 import ROUTES from "@/router/routes";
 import { useAllConductorTypesQuery } from "@/services/api";
 
@@ -18,7 +17,11 @@ const EditButton: React.FC<EditButtonProps> = ({ id }) => {
     function handleClick() {
         navigate(ROUTES.EDIT_CONDUCTOR_TYPE.buildPath({ id }));
     }
-    return <BaseButton onClick={() => handleClick()}>EDIT</BaseButton>;
+    return (
+        <Button variant="ghost" size="icon" onClick={() => handleClick()}>
+            <Info />
+        </Button>
+    );
 };
 
 const columns = [
@@ -54,12 +57,7 @@ const ConductorTable: React.FC<Props> = () => {
     if (error || !data) {
         return <div>Theres an error!</div>;
     }
-    return (
-        <Wrapper>
-            <BaseTable data={data} columns={columns} />
-        </Wrapper>
-    );
+    return <DataTable data={data} columns={columns} />;
 };
 
-const Wrapper = styled.div``;
 export default ConductorTable;

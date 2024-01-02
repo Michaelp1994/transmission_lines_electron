@@ -1,6 +1,4 @@
-import React from "react";
 import { Formik, FormikHelpers } from "formik";
-
 import { useNavigate } from "react-router-dom";
 import Routes from "@/router/routes";
 import BaseTowerGeometryForm from "../BaseTowerGeometryForm";

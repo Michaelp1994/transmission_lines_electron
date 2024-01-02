@@ -2,6 +2,8 @@ import { resolve } from "path";
 import { defineConfig, externalizeDepsPlugin, swcPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react";
 // import tsconfigPaths from "vite-tsconfig-paths";
+import { visualizer } from "rollup-plugin-visualizer";
+import { type PluginOption } from "vite";
 
 export default defineConfig({
     main: {
@@ -41,6 +43,12 @@ export default defineConfig({
                 "@shared": resolve("src/shared"),
             },
         },
-        plugins: [react()],
+        plugins: [
+            react(),
+            visualizer({
+                emitFile: true,
+                filename: "stats.html",
+            }) as PluginOption,
+        ],
     },
 });

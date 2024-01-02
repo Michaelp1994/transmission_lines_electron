@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+    "include": [
+        "electron.vite.config.ts",
+        "eslint.config.js",
+        "prettier.config.js",
+        "src/main/**/*",
+        "src/preload/*",
+        "src/types.d.ts",
+        "src/shared/**/*"
+    ],
+
+    "compilerOptions": {
+        //"isolatedModules": true,
+        "strict": true,
+        "types": ["electron-vite/node"],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "strictPropertyInitialization": false,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        // "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@shared/*": ["src/shared/*"],
+            "@database/*": ["src/main/database/*"],
+            "@models/*": ["src/main/database/models/*"],
+            "@api/*": ["src/main/api/*"]
+        }
+    }
+}

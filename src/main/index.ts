@@ -1,64 +1,21 @@
 /* eslint-disable no-console */
 import "reflect-metadata";
-import { app, shell, BrowserWindow } from "electron";
-import { join } from "path";
-import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+import { app, BrowserWindow } from "electron";
+import { electronApp, optimizer } from "@electron-toolkit/utils";
 import setupApi from "@api/index";
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import installExtension, {
-    REDUX_DEVTOOLS,
-    REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
-import dataSource from "@database/dataSource";
-import appIcon from "../../resources/favicon.ico?asset";
-
-function createWindow() {
-    // Create the browser window.
-    const mainWindow = new BrowserWindow({
-        show: false,
-        autoHideMenuBar: true,
-        icon: appIcon,
-        // ...(process.platform === "linux" ? { icon: "favicon.ico" } : {}),
-        webPreferences: {
-            preload: join(__dirname, "../preload/index.js"),
-            sandbox: false,
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
-
-    mainWindow.on("ready-to-show", () => {
-        mainWindow.maximize();
-        mainWindow.show();
-    });
-
-    mainWindow.webContents.setWindowOpenHandler((details) => {
-        shell.openExternal(details.url);
-        return { action: "deny" };
-    });
-
-    // HMR for renderer base on electron-vite cli.
-    // Load the remote URL for development or the local html file for production.
-    if (is.dev && process.env.ELECTRON_RENDERER_URL) {
-        mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
-    } else {
-        mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
-    }
-    return mainWindow;
-}
+import createWindow from "./createWindow";
+import setupDatabase from "./database";
+import setupDevTools from "./setupDevTools";
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
+    await setupDevTools();
+
     // Set app user model id for windows
     electronApp.setAppUserModelId("com.electron");
-
-    // Install DevTools extensions
-    installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
-        .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log("An error occurred: ", err));
 
     // Default open or close DevTools by F12 in development
     // and ignore CommandOrControl + R in production.
@@ -68,9 +25,9 @@ app.whenReady().then(async () => {
     });
 
     createWindow();
-    dataSource.initialize().then(() => {
-        console.log("Database initialized");
-    });
+    console.log(process.argv);
+    setupDatabase();
+
     app.on("activate", () => {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.

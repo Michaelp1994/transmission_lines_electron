@@ -1,9 +1,16 @@
-import styled from "styled-components";
-import React, { useState } from "react";
 import { Formik, FormikProps } from "formik";
+import {
+    Button,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "component-library";
 
-import BaseModal from "@/components/BaseModal";
-import BaseButton from "@/components/BaseButton";
 import FormInput from "@/components/FormInput";
 import { ConductorTypeSelect } from "@/features/conductorTypes";
 
@@ -27,20 +34,25 @@ const GenerateConductorsModal: React.FC<Props> = ({ onSubmit }) => {
         phaseConductorTypeId: 1,
         neutralConductorTypeId: 1,
     };
-    const [open, setOpen] = useState(false);
     function handleSubmit(values: GenerateConfig) {
         onSubmit(values);
-
-        setOpen(false);
     }
     return (
-        <Wrapper>
-            <BaseButton onClick={() => setOpen(true)}>Generate</BaseButton>
-            <BaseModal open={open} onClose={() => setOpen(false)}>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button>Generate</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Generate Conductors</DialogTitle>
+                    <DialogDescription>
+                        Generate a configuration for the conductors of the
+                        transmission line.
+                    </DialogDescription>
+                </DialogHeader>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     {(props: FormikProps<any>) => (
-                        <ModalContent>
-                            <div>Generate Towers</div>
+                        <>
                             <FormInput
                                 label="Phases"
                                 name="phases"
@@ -70,24 +82,22 @@ const GenerateConductorsModal: React.FC<Props> = ({ onSubmit }) => {
                                 label="Neutral Cable Type"
                                 name="neutralConductorTypeId"
                             />
-                            <BaseButton
-                                type="submit"
-                                onClick={() => props.handleSubmit()}
-                            >
-                                Generate
-                            </BaseButton>
-                        </ModalContent>
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button
+                                        type="submit"
+                                        onClick={() => props.handleSubmit()}
+                                    >
+                                        Generate
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </>
                     )}
                 </Formik>
-            </BaseModal>
-        </Wrapper>
+            </DialogContent>
+        </Dialog>
     );
 };
 
-const Wrapper = styled.div``;
-const ModalContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-`;
 export default GenerateConductorsModal;

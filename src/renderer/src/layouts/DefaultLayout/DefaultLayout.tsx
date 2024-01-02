@@ -4,13 +4,13 @@ import styled from "styled-components";
 import NavBar from "@/layouts/DefaultLayout/components/NavBar";
 
 const DefaultLayout = () => (
-        <>
-            <NavBar />
-            <StyledWrapper>
-                <Outlet />
-            </StyledWrapper>
-        </>
-    )
+    <>
+        <NavBar />
+        <StyledWrapper>
+            <Outlet />
+        </StyledWrapper>
+    </>
+);
 
 const StyledWrapper = styled.main`
     max-width: 1440px;

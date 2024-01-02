@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { Button } from "component-library";
+import { Link } from "react-router-dom";
+
 import ApiEvent from "@shared/ApiEvent";
 import SourcesList from "@/features/sources/components/SourcesList";
 import TransmissionLinesList from "@/features/transmissionLines/components/TransmissionLinesList";
-import BaseButton from "@/components/BaseButton";
 import ROUTES from "@/router/routes";
 import { useAppSelector } from "@/store";
 
@@ -14,7 +16,7 @@ const ProjectPage: React.FC<Props> = () => {
         (state) => state.transmissionLines
     );
     async function handleSave() {
-        await window.electron.ipcRenderer.invoke(
+        await window.api.invoke(
             ApiEvent.SaveProject,
             sources,
             transmissionLines
@@ -25,20 +27,35 @@ const ProjectPage: React.FC<Props> = () => {
         <StyledWrapper>
             <SourcesSection>
                 <Heading>Sources </Heading>
-                <BaseButton to={ROUTES.ADD_SOURCE.path}>Add Source</BaseButton>
+                <Button asChild>
+                    <Link to={ROUTES.ADD_SOURCE.path}>Add Source</Link>
+                </Button>
                 <SourcesList />
             </SourcesSection>
             <TransmissionLinesSection>
                 <Heading>Transmission Lines</Heading>
-                <BaseButton to={ROUTES.ADD_TRANSMISSION_LINE.path}>
-                    Add Transmission Line
-                </BaseButton>
+                <Button asChild>
+                    <Link to={ROUTES.ADD_TRANSMISSION_LINE.path}>
+                        Add Transmission Line
+                    </Link>
+                </Button>
                 <TransmissionLinesList />
             </TransmissionLinesSection>
-            <BaseButton to={ROUTES.GENERATE_RESULTS.path}>
-                Solve Circuit!
-            </BaseButton>
-            <BaseButton onClick={handleSave}>Save Project</BaseButton>
+            <Button
+                disabled={
+                    sources.length === 0 || transmissionLines.length === 0
+                }
+            >
+                <Link to={ROUTES.GENERATE_RESULTS.path}> Solve Circuit!</Link>
+            </Button>
+            <Button
+                disabled={
+                    sources.length === 0 || transmissionLines.length === 0
+                }
+                onClick={handleSave}
+            >
+                Save Project
+            </Button>
         </StyledWrapper>
     );
 };

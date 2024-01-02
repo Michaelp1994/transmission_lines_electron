@@ -13,8 +13,8 @@ const AddTransmissionLineForm: React.FC<Props> = () => {
     const navigate = useNavigate();
     const initialValues: TransmissionLineInput = {
         name: "",
-        fromSource: 0,
-        toSource: 0,
+        fromSource: "",
+        toSource: "",
         conductors: [
             {
                 name: "",

@@ -1,21 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FieldHookConfig, useField } from "formik";
 import styled from "styled-components";
+// import { FormLabel, Input } from "component-library";
 
 interface CustomProps {
-    label?: string;
+    label?: string | React.ReactNode;
 }
 
-type Props = CustomProps & FieldHookConfig<string>;
+type Props = CustomProps & FieldHookConfig<HTMLInputElement>;
 
-const FormInput: React.FC<Props> = ({ label, id, name, ...otherProps }) => {
+const FormInput: React.FC<Props> = ({
+    label,
+    id,
+    name,
+    ref,
+    ...otherProps
+}) => {
     const [field, meta] = useField({ id, name, ...otherProps });
     return (
         <StyledWrapper>
             {label && <FormLabel htmlFor={id || name}>{label}</FormLabel>}
             <Input {...field} {...{ id, name, ...otherProps }} id={name} />
             {meta.touched && meta.error ? (
-                <FormFeedback>meta.error</FormFeedback>
+                <FormFeedback>{meta.error}</FormFeedback>
             ) : null}
         </StyledWrapper>
     );
@@ -38,7 +45,8 @@ const Input = styled.input`
     font-size: 1rem;
     line-height: 1.5rem;
     color: hsl(204 10% 10%);
-    box-shadow: inset 0 0 0 1px rgba(0 0 0 / 0.1),
+    box-shadow:
+        inset 0 0 0 1px rgba(0 0 0 / 0.1),
         inset 0 2px 5px 0 rgba(0 0 0 / 0.05);
 
     &:placeholder {

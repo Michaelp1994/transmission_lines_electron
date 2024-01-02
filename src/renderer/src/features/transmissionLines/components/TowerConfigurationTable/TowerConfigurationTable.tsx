@@ -1,7 +1,18 @@
 import styled from "styled-components";
 import { ArrayHelpers, FieldArray, FormikProps } from "formik";
-import BaseButton from "../../../../components/BaseButton";
-import FormInput from "../../../../components/FormInput";
+import {
+    Button,
+    Card,
+    CardHeader,
+    CardHeaderText,
+    CardHeaderActions,
+    CardTitle,
+    CardContent,
+    CardDescription,
+} from "component-library";
+import { Plus, X } from "lucide-react";
+
+import FormInput from "@/components/FormInput";
 import TowerGeometrySelect from "../../../towerGeometries/components/TowerGeometrySelect";
 import GenerateTowersModal from "../GenerateTowersModal";
 
@@ -44,15 +55,22 @@ const TowerConfigurationTable: React.FC<Props> = () => (
                 arrayHelpers.form.setFieldValue("towers", newTowers);
             }
             return (
-                <Wrapper>
+                <Card>
                     <CardHeader>
-                        <CardTitle>Tower Configuration</CardTitle>
+                        <CardHeaderText>
+                            <CardTitle>Tower Configuration</CardTitle>
+                            <CardDescription>
+                                Configure the towers for the Transmission line.
+                            </CardDescription>
+                        </CardHeaderText>
                         <CardHeaderActions>
                             <GenerateTowersModal
                                 onSubmit={(values) => generateTowers(values)}
                             />
-                            <BaseButton
+                            <Button
                                 type="button"
+                                variant="destructive"
+                                size="icon"
                                 onClick={() =>
                                     arrayHelpers.form.setFieldValue("towers", [
                                         addTower(),
@@ -62,14 +80,15 @@ const TowerConfigurationTable: React.FC<Props> = () => (
                                     arrayHelpers.form.values.towers.length === 1
                                 }
                             >
-                                Remove All
-                            </BaseButton>
-                            <BaseButton
+                                <X />
+                            </Button>
+                            <Button
                                 type="button"
+                                size="icon"
                                 onClick={() => arrayHelpers.push(addTower())}
                             >
-                                Add
-                            </BaseButton>
+                                <Plus />
+                            </Button>
                         </CardHeaderActions>
                     </CardHeader>
                     <CardContent>
@@ -104,47 +123,29 @@ const TowerConfigurationTable: React.FC<Props> = () => (
                                     <TowerGeometrySelect
                                         name={`towers.${index}.geometry`}
                                     />
-                                    <BaseButton
+                                    <Button
+                                        variant="destructive"
+                                        size="icon"
+                                        disabled={
+                                            arrayHelpers.form.values.towers
+                                                .length === 1
+                                        }
                                         onClick={() =>
                                             arrayHelpers.remove(index)
                                         }
                                     >
-                                        Remove
-                                    </BaseButton>
+                                        <X />
+                                    </Button>
                                 </Row>
                             ))}
                         </Table>
                     </CardContent>
-                </Wrapper>
+                </Card>
             );
         }}
     />
 );
 
-const Wrapper = styled.div`
-    border-radius: 16px;
-    border: 1px black solid;
-`;
-
-const CardHeader = styled.div`
-    background-color: blue;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    color: white;
-    padding: 10px;
-    padding-inline: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-const CardTitle = styled.div``;
-const CardHeaderActions = styled.div`
-    display: flex;
-    gap: 8px;
-`;
-const CardContent = styled.div`
-    padding: 10px;
-`;
 const Table = styled.div`
     display: flex;
     flex-direction: column;

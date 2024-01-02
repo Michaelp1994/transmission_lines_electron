@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "component-library";
 
 import { Form } from "formik";
 
@@ -7,7 +8,6 @@ import TowerConfigurationTable from "../TowerConfigurationTable";
 
 import FormInput from "@/components/FormInput";
 import { SourceSelect } from "@/features/sources";
-import BaseButton from "@/components/BaseButton";
 
 interface Props {}
 
@@ -20,11 +20,11 @@ const BaseTransmissionLineForm: React.FC<Props> = () => (
             placeholder="Example"
             required
         />
-        <SourceSelect label="From" name="fromSource" id="from" />
-        <SourceSelect label="To" name="toSource" id="to" />
+        <SourceSelect label="From" name="fromSource" id="from" required />
+        <SourceSelect label="To" name="toSource" id="to" required />
         <ConductorConfigurationTable />
         <TowerConfigurationTable />
-        <BaseButton type="submit">Add Transmission Line</BaseButton>
+        <Button type="submit">Add Transmission Line</Button>
     </StyledForm>
 );
 
