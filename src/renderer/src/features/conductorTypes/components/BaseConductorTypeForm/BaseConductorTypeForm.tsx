@@ -2,14 +2,13 @@ import styled from "styled-components";
 import { Form } from "formik";
 import { Button } from "component-library";
 import FormInput from "@/components/FormInput";
-import FormSelect from "@/components/FormSelect";
 
 interface Props {}
 
 const BaseConductorTypeForm: React.FC<Props> = () => (
     <StyledForm>
         <FormInput label="Name" name="name" required />
-        {/* <FormInput
+        <FormInput
             label={
                 <span>
                     Surface Area (mm<Sup>2</Sup>)
@@ -17,24 +16,8 @@ const BaseConductorTypeForm: React.FC<Props> = () => (
             }
             type="number"
             name="surfaceArea"
-        /> */}
-        Internal:
-        <FormSelect label="Material" name="innerMaterial">
-            <option value="copper">Copper</option>
-            <option value="aluminum">Aluminum</option>
-            <option value="steel">Steel</option>
-        </FormSelect>
-        <FormInput label="Number of strands" name="innerStrands" />
-        <FormInput label="Strand Radius (mm)" name="innerStrandRadius" />
-        External:
-        <FormSelect label="Material" name="outerMaterial">
-            <option value="copper">Copper</option>
-            <option value="aluminum">Aluminum</option>
-            <option value="steel">Steel</option>
-        </FormSelect>
-        <FormInput label="Number of strands" name="outerStrands" />
-        <FormInput label="Strand Radius (mm)" name="outerStrandRadius" />
-        {/* <FormInput
+        />
+        <FormInput
             label="Outer Diameter (mm)"
             type="number"
             name="outerDiameter"
@@ -76,7 +59,7 @@ const BaseConductorTypeForm: React.FC<Props> = () => (
             label="Geometric Mean Radius (mm)"
             type="number"
             name="gmr"
-        /> */}
+        />
         <Button type="submit">Submit</Button>
     </StyledForm>
 );
