@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import BaseSourceForm from "../BaseSourceForm";
 import { updateSource, selectSourceById } from "@/store/SourcesSlice";
@@ -14,6 +15,8 @@ interface Props {
 const EditSourceForm: React.FC<Props> = ({ id }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation("translation");
+
     const source = useAppSelector((state) => selectSourceById(state, id));
     function handleSubmit(
         values: SourceInput
@@ -27,7 +30,7 @@ const EditSourceForm: React.FC<Props> = ({ id }) => {
         );
         navigate(Routes.PROJECT.path);
     }
-    if (!source) return <div>Error, cannot find the source</div>;
+    if (!source) return <div>{t("errorMessage")}</div>;
 
     return (
         <Formik initialValues={source} onSubmit={handleSubmit}>

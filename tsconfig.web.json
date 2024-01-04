@@ -6,7 +6,7 @@
         "src/renderer/**/*.tsx",
         "src/renderer/**/*.ts",
         "src/preload/*.d.ts",
-        "src/types.d.ts",
+        "src/@types/types.d.ts",
         "src/shared/**/*"
     ],
     "compilerOptions": {

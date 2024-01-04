@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Info, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import {
     Button,
@@ -86,32 +87,38 @@ interface ConfirmDialogProps {
     onConfirm(): void;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => (
-    <AlertDialog>
-        <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="icon">
-                <CloseIcon />
-            </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-            <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    the source.
-                </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                    className={buttonVariants({ variant: "destructive" })}
-                    onClick={() => onConfirm()}
-                >
-                    Continue
-                </AlertDialogAction>
-            </AlertDialogFooter>
-        </AlertDialogContent>
-    </AlertDialog>
-);
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => {
+    const { t } = useTranslation("translation");
+
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="icon">
+                    <CloseIcon />
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        {t("confirmationTitle")}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {t("cannotUndo")}
+                        {t("sourceDeletionWarning")}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                        className={buttonVariants({ variant: "destructive" })}
+                        onClick={() => onConfirm()}
+                    >
+                        {t("delete")}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+};
 
 export default SourcesList;

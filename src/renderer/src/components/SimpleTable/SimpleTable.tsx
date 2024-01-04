@@ -28,4 +28,3 @@ export const TableBody = styled.tbody`
 `;
 
 export const TableFooter = styled.tfoot``;
-// export default SimpleTable;

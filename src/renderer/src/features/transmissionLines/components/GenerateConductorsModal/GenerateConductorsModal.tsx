@@ -10,6 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "component-library";
+import { useTranslation } from "react-i18next";
 
 import FormInput from "@/components/FormInput";
 import { ConductorTypeSelect } from "@/features/conductorTypes";
@@ -27,6 +28,8 @@ interface Props {
 }
 
 const GenerateConductorsModal: React.FC<Props> = ({ onSubmit }) => {
+    const { t } = useTranslation("translation");
+
     const initialValues: GenerateConfig = {
         phases: 3,
         circuits: 2,
@@ -40,46 +43,45 @@ const GenerateConductorsModal: React.FC<Props> = ({ onSubmit }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Generate</Button>
+                <Button>{t("generate")}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Generate Conductors</DialogTitle>
+                    <DialogTitle>{t("generateConductors")}</DialogTitle>
                     <DialogDescription>
-                        Generate a configuration for the conductors of the
-                        transmission line.
+                        {t("generateConductorsDescription")}
                     </DialogDescription>
                 </DialogHeader>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     {(props: FormikProps<any>) => (
                         <>
                             <FormInput
-                                label="Phases"
+                                label={t("phases")}
                                 name="phases"
                                 type="number"
                                 placeholder="Example"
                                 required
                             />
                             <FormInput
-                                label="Number of Circuits"
+                                label={t("numberOfCircuits")}
                                 name="circuits"
                                 type="number"
                                 placeholder="Example"
                                 required
                             />
                             <FormInput
-                                label="Number of Neutrals"
+                                label={t("numberOfNeutrals")}
                                 name="neutrals"
                                 type="number"
                                 placeholder="Example"
                                 required
                             />
                             <ConductorTypeSelect
-                                label="Phase Cable Type"
+                                label={t("phaseCableType")}
                                 name="phaseConductorTypeId"
                             />
                             <ConductorTypeSelect
-                                label="Neutral Cable Type"
+                                label={t("neutralCableType")}
                                 name="neutralConductorTypeId"
                             />
                             <DialogFooter>
@@ -88,7 +90,7 @@ const GenerateConductorsModal: React.FC<Props> = ({ onSubmit }) => {
                                         type="submit"
                                         onClick={() => props.handleSubmit()}
                                     >
-                                        Generate
+                                        {t("generate")}
                                     </Button>
                                 </DialogClose>
                             </DialogFooter>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import FormSelect from "@/components/FormSelect";
 import { useAppSelector } from "@/store";
 
@@ -10,10 +11,11 @@ interface Props {
 
 const SourceSelect: React.FC<Props> = ({ label, name, required }) => {
     const sources = useAppSelector((state) => state.sources);
+    const { t } = useTranslation("translation");
 
     return (
         <FormSelect label={label} name={name} required={required}>
-            <option value="">Select a source</option>
+            <option value="">{t("selectSource")}</option>
             {sources.map(({ id, name: sourceName }) => (
                 <option key={id} value={id}>
                     {sourceName}

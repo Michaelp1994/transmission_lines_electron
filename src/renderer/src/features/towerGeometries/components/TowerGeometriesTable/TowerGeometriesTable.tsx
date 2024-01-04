@@ -1,8 +1,9 @@
-import styled from "styled-components";
 import { Button } from "component-library";
 import { Info } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import DataTable from "@/components/DataTable";
 import ROUTES from "@/router/routes";
 import { useAllTowerGeometriesQuery } from "@/services/api";
@@ -27,31 +28,26 @@ const EditButton: React.FC<EditButtonProps> = ({ id }) => {
     );
 };
 
-const columns = [
-    columnHelper.accessor("name", {
-        header: "Name",
-        cell: (info) => info.renderValue(),
-    }),
-    columnHelper.accessor("id", {
-        header: "Actions",
-        cell: (props) => <EditButton id={props.getValue()} />,
-    }),
-];
-
 const GeometriesTable: React.FC<Props> = () => {
+    const { t } = useTranslation("translation");
     const { data = [], error, isLoading } = useAllTowerGeometriesQuery();
+    const columns = [
+        columnHelper.accessor("name", {
+            header: `${t("name")}`,
+            cell: (info) => info.renderValue(),
+        }),
+        columnHelper.accessor("id", {
+            header: `${t("actions")}`,
+            cell: (props) => <EditButton id={props.getValue()} />,
+        }),
+    ];
     if (error) {
-        return <div>error</div>;
+        return <div>{t("errorMessage")}</div>;
     }
     if (isLoading) {
-        return <div>loading</div>;
+        return <div>{t("loading")}</div>;
     }
-    return (
-        <Wrapper>
-            <DataTable data={data} columns={columns} />
-        </Wrapper>
-    );
+    return <DataTable data={data} columns={columns} />;
 };
 
-const Wrapper = styled.div``;
 export default GeometriesTable;

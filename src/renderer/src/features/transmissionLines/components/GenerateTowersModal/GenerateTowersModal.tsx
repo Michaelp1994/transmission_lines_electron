@@ -9,8 +9,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "component-library";
-
+import { useTranslation } from "react-i18next";
 import { Formik, FormikProps } from "formik";
+
 import FormInput from "@/components/FormInput";
 import { TowerGeometrySelect } from "@/features/towerGeometries";
 
@@ -26,6 +27,8 @@ interface Props {
 }
 
 const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
+    const { t } = useTranslation("translation");
+
     const initialValues: GenerateConfig = {
         name: "T",
         numTowers: 10,
@@ -39,46 +42,45 @@ const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Generate</Button>
+                <Button>{t("generate")}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Generate Towers</DialogTitle>
+                    <DialogTitle>{t("generateTowers")}</DialogTitle>
                     <DialogDescription>
-                        Generate a configuration for the towers of the
-                        transmission line.
+                        {t("generateTowersDescription")}
                     </DialogDescription>
                 </DialogHeader>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
                     {(props: FormikProps<any>) => (
                         <>
                             <FormInput
-                                label="Name Prefix"
+                                label={t("namePrefix")}
                                 name="name"
                                 type="text"
                                 placeholder="Example"
                                 required
                             />
                             <TowerGeometrySelect
-                                label="Tower Type"
+                                label={t("towerGeometry")}
                                 name="geometry"
                             />
                             <FormInput
-                                label="Number of Towers"
+                                label={t("numberOfTowers")}
                                 name="numTowers"
                                 type="number"
                                 placeholder="Example"
                                 required
                             />
                             <FormInput
-                                label="Average Tower Resistance"
+                                label={t("averageTowerResistance")}
                                 name="resistance"
                                 type="number"
                                 placeholder="Example"
                                 required
                             />
                             <FormInput
-                                label="Total Distance (km)"
+                                label={t("totalDistance")}
                                 name="distance"
                                 type="number"
                                 placeholder="Example"
@@ -90,7 +92,7 @@ const GenerateTowersModal: React.FC<Props> = ({ onSubmit }) => {
                                         type="submit"
                                         onClick={() => props.handleSubmit()}
                                     >
-                                        Generate
+                                        {t("generate")}
                                     </Button>
                                 </DialogClose>
                             </DialogFooter>

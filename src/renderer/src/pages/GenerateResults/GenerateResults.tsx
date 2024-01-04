@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import { useAppSelector } from "@/store";
 import Routes from "@/router/routes";
 import { useSolveCircuitQuery } from "@/services/api";
@@ -7,6 +9,8 @@ import { useSolveCircuitQuery } from "@/services/api";
 interface Props {}
 
 const GenerateResults: React.FC<Props> = () => {
+    const { t } = useTranslation("translation");
+
     const sources = useAppSelector((state) => state.sources);
     const transmissionLines = useAppSelector(
         (state) => state.transmissionLines
@@ -17,21 +21,21 @@ const GenerateResults: React.FC<Props> = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t("loading")}</div>;
     }
     if (error || !data) {
         console.log(error);
-        return <div>Theres an error!</div>;
+        return <div>{t("errorMessage")}</div>;
     }
 
     return (
         <Wrapper>
-            <Link to={Routes.PROJECT.path}>Go Back</Link>
+            <Link to={Routes.PROJECT.path}>{t("goBack")}</Link>
             <Table>
                 <thead>
                     <tr>
-                        <th>Location</th>
-                        <th>Amps (A)</th>
+                        <th>{t("location")}</th>
+                        <th>{t("amps")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +70,7 @@ const Table = styled.table`
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
-        background-color: #04aa6d;
+        background-color: blue;
         color: white;
     }
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Formik, FormikHelpers } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ROUTES from "@/router/routes";
 import BaseConductorTypeForm from "../BaseConductorTypeForm";
@@ -15,6 +16,7 @@ interface Props {
 
 const EditConductorTypeForm: React.FC<Props> = ({ id }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation("translation");
     const { data, error, isLoading } = useConductorTypeQuery(id);
     const [editConductor, result] = useEditConductorTypeMutation();
     async function handleSubmit(
@@ -30,10 +32,10 @@ const EditConductorTypeForm: React.FC<Props> = ({ id }) => {
         navigate(ROUTES.CONDUCTORS.path);
     }
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t("loading")}</div>;
     }
     if (error || !data) {
-        return <div>Theres an error!</div>;
+        return <div>{t("errorMessage")}</div>;
     }
     return (
         <Wrapper>

@@ -13,6 +13,8 @@ import {
     AlertDialogTrigger,
     buttonVariants,
 } from "component-library";
+import { useTranslation } from "react-i18next";
+
 import { Trash2, Info } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { removeTransmissionLine } from "@/store/TransmissionLinesSlice";
@@ -91,32 +93,38 @@ interface ConfirmDialogProps {
     onConfirm(): void;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => (
-    <AlertDialog>
-        <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="icon">
-                <CloseIcon />
-            </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-            <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    the transmission line.
-                </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction
-                    className={buttonVariants({ variant: "destructive" })}
-                    onClick={() => onConfirm()}
-                >
-                    Continue
-                </AlertDialogAction>
-            </AlertDialogFooter>
-        </AlertDialogContent>
-    </AlertDialog>
-);
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ onConfirm }) => {
+    const { t } = useTranslation("translation");
+
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="icon">
+                    <CloseIcon />
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        {t("confirmationTitle")}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {t("cannotUndo")}
+                        {t("transmissionLineDeletionWarning")}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction
+                        className={buttonVariants({ variant: "destructive" })}
+                        onClick={() => onConfirm()}
+                    >
+                        {t("continue")}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+};
 
 export default TransmissionLinesList;

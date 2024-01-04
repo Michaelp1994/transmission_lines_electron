@@ -1,5 +1,7 @@
 import { Formik, FormikHelpers } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import BaseTowerGeometryForm from "../BaseTowerGeometryForm";
 import Routes from "@/router/routes";
 import {
@@ -13,6 +15,8 @@ interface Props {
 
 const EditTowerGeometryForm: React.FC<Props> = ({ id }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation("translation");
+
     const { data, error, isLoading } = useTowerGeometryQuery(id);
     const [editTowerGeometry, result] = useEditTowerGeometryMutation();
     async function handleSubmit(
@@ -28,10 +32,10 @@ const EditTowerGeometryForm: React.FC<Props> = ({ id }) => {
         navigate(Routes.TOWER_GEOMETRIES.path);
     }
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>{t("loading")}</div>;
     }
     if (error || !data) {
-        return <div>Theres an error!</div>;
+        return <div>{t("errorMessage")}</div>;
     }
     return (
         <Formik initialValues={data} onSubmit={handleSubmit}>

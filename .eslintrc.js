@@ -45,11 +45,13 @@ module.exports = defineConfig({
                 browser: true,
                 es2023: true,
             },
+            plugins: ["i18next"],
             extends: [
                 "airbnb",
                 "airbnb-typescript",
                 "airbnb/hooks",
                 "plugin:react/jsx-runtime",
+                "plugin:i18next/recommended",
                 "prettier",
             ],
             rules: {

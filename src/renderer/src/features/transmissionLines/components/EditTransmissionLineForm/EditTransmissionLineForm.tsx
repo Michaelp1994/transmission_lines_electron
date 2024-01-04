@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
+import { useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { updateTransmissionLine } from "@/store/TransmissionLinesSlice";
@@ -13,11 +14,13 @@ interface Props {
 const EditTransmissionLineForm: React.FC<Props> = ({ id }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation("translation");
+
     const transmissionLine = useAppSelector((state) =>
         state.transmissionLines.find((line) => line.id === id)
     );
     if (!transmissionLine) {
-        return <div>Transmission Line not found!</div>;
+        return <div>{t("errorMessage")}</div>;
     }
     function onSubmit(values: TransmissionLine) {
         dispatch(updateTransmissionLine({ id, transmissionLine: values }));

@@ -1,25 +1,30 @@
 import styled from "styled-components";
 import { Button } from "component-library";
 import { Form } from "formik";
-import FormInput from "@/components/FormInput";
+import { useTranslation } from "react-i18next";
 
+import FormInput from "@/components/FormInput";
 import ConductorLocationTable from "@/features/towerGeometries/components/ConductorLocationTable";
 import TowerGeometryDiagram from "@/features/towerGeometries/components/TowerGeometryDiagram";
 
 interface Props {}
 
-const BaseTowerGeometryForm: React.FC<Props> = () => (
-    <StyledForm>
-        <LeftSide>
-            <FormInput label="Name" name="name" required />
-            <ConductorLocationTable />
-            <Button type="submit">Submit</Button>
-        </LeftSide>
-        <RightSide>
-            <TowerGeometryDiagram />
-        </RightSide>
-    </StyledForm>
-);
+const BaseTowerGeometryForm: React.FC<Props> = () => {
+    const { t } = useTranslation("translation");
+
+    return (
+        <StyledForm>
+            <LeftSide>
+                <FormInput label={t("name")} name="name" required />
+                <ConductorLocationTable />
+                <Button type="submit">{t("submit")}</Button>
+            </LeftSide>
+            <RightSide>
+                <TowerGeometryDiagram />
+            </RightSide>
+        </StyledForm>
+    );
+};
 
 const LeftSide = styled.div`
     display: flex;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button } from "component-library";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ApiEvent from "@shared/ApiEvent";
 
@@ -14,7 +15,7 @@ interface Props {}
 const Home: React.FC<Props> = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
+    const { t } = useTranslation("translation");
     async function handleOpen() {
         const data = await window.api.invoke(ApiEvent.OpenProject);
         if (!data) return;
@@ -25,7 +26,7 @@ const Home: React.FC<Props> = () => {
 
     return (
         <Wrapper>
-            <Button onClick={handleOpen}>Open Project</Button>
+            <Button onClick={handleOpen}>{t("openProject")}</Button>
         </Wrapper>
     );
 };
